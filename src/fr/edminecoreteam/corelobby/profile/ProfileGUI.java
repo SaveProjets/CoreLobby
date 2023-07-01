@@ -2,6 +2,7 @@ package fr.edminecoreteam.corelobby.profile;
 
 import java.util.ArrayList;
 
+import fr.edminecoreteam.corelobby.profile.ranks.Rank;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
