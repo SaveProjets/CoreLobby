@@ -1,0 +1,2 @@
+# CoreLobby
+Official Lobby plugin.
