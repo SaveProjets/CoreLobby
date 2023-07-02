@@ -85,7 +85,7 @@ public class FriendGui implements Listener
             {
                 if (it.getType() == Material.SKULL_ITEM || it.getType() == Material.DIODE)
                 {
-                    if(it.getItemMeta().getDisplayName() == "§8⬅ §7Page Précédente" || it.getItemMeta().getDisplayName() == "§8➡ §7Page Suivante" || it.getItemMeta().getDisplayName() == "§c§lProfil" || it.getItemMeta().getDisplayName() == "§b§lVotre Guild" || it.getItemMeta().getDisplayName() == "§9§lGroupes" || it.getItemMeta().getDisplayName() == "§d§lAmis §c❤" || it.getItemMeta().getDisplayName() == "§d§lAjouter un ami" || it.getItemMeta().getDisplayName() == "§a§lDemandes d'amis")
+                    if(it.getItemMeta().getDisplayName() == "§8⬅ §7Page Précédente" || it.getItemMeta().getDisplayName() == "§8➡ §7Page Suivante" || it.getItemMeta().getDisplayName() == "§c§lProfil" || it.getItemMeta().getDisplayName() == "§b§lVotre Guild" || it.getItemMeta().getDisplayName() == "§9§lGroupes" || it.getItemMeta().getDisplayName() == "§d§lAmis §c❤" || it.getItemMeta().getDisplayName() == "§d§lAjoutez un ami" || it.getItemMeta().getDisplayName() == "§a§lDemandes d'amis")
                     {
                         e.setCancelled(true);
                     } else
@@ -98,7 +98,7 @@ public class FriendGui implements Listener
             }
 
         }
-        if (it.getType() == Material.SKULL_ITEM && it.getItemMeta().getDisplayName() == "§d§lAjouter un ami") {
+        if (it.getType() == Material.SKULL_ITEM && it.getItemMeta().getDisplayName() == "§d§lAjoutez un ami") {
             addFriend(p);
         }
     }
@@ -249,11 +249,11 @@ public class FriendGui implements Listener
 
         ItemStack addfriend = getSkull("http://textures.minecraft.net/texture/f3bfe4131a6f612c75b45d80839bcb37edd7e8717e695a3e64ce9d033beafe6");
         SkullMeta addfriendM = (SkullMeta) addfriend.getItemMeta();
-        addfriendM.setDisplayName("§d§lAjouter un ami");
+        addfriendM.setDisplayName("§d§lAjoutez un ami");
         ArrayList<String> loreaddfriend = new ArrayList<String>();
         loreaddfriend.add("");
         loreaddfriend.add(" §aDescription:");
-        loreaddfriend.add(" §f▶ §7Ajouter de manière simple");
+        loreaddfriend.add(" §f▶ §7Ajoutez de manière simple");
         loreaddfriend.add(" §f  §7un joueur de votre choix.");
         loreaddfriend.add("");
         loreaddfriend.add("§8➡ §fCliquez pour y accéder.");
@@ -263,11 +263,11 @@ public class FriendGui implements Listener
 
         ItemStack sortIt = new ItemStack(Material.MAGMA_CREAM, 1);
         ItemMeta sortItM = sortIt.getItemMeta();
-        sortItM.setDisplayName("§f§lTrié vos amis");
+        sortItM.setDisplayName("§f§lTriez vos amis");
         ArrayList<String> loresortIt = new ArrayList<String>();
         loresortIt.add("");
         loresortIt.add(" §aDescription:");
-        loresortIt.add(" §f▶ §7Cliquez pour trié facilement");
+        loresortIt.add(" §f▶ §7Cliquez pour trier facilement");
         loresortIt.add(" §f  §7votre liste d'amis.");
         loresortIt.add("");
         loresortIt.add("§8➡ §fCliquez pour y accéder.");
@@ -351,10 +351,23 @@ public class FriendGui implements Listener
         p.playSound(p.getLocation(), Sound.VILLAGER_IDLE, 1.0f, 1.0f);
         p.sendMessage("");
         p.sendMessage(" §7» §d§lInformations §d(amis):");
-        p.sendMessage(" §7● §fVoulez-vous vraiment suprimer §c§l" + target + "§7?");
+        p.sendMessage(" §7● §fVoulez-vous vraiment supprimer §c§l" + target + "§7?");
         TextComponent confirm = new TextComponent(" §f➡ §a[Confirmer]");
-        confirm.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Cliquez ici pour suprimer " + target + ".").create()));
+        confirm.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Cliquez ici pour supprimer " + target + ".").create()));
         confirm.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/f remove " + target));
+        p.spigot().sendMessage(confirm);
+        p.sendMessage("");
+    }
+
+    private void confirmAddFavoris(Player p, String target){
+        p.closeInventory();
+        p.playSound(p.getLocation(), Sound.VILLAGER_IDLE, 1.0f, 1.0f);
+        p.sendMessage("");
+        p.sendMessage(" §7» §d§lInformations §d(amis):");
+        p.sendMessage(" §7● §fVoulez-vous vraiment ajouter §c§l" + target + "§f à vos favoris§7?");
+        TextComponent confirm = new TextComponent(" §f➡ §a[Confirmer]");
+        confirm.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Cliquez ici pour ajouter " + target + " à vos favoris.").create()));
+        confirm.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/f favoris add " + target));
         p.spigot().sendMessage(confirm);
         p.sendMessage("");
     }
