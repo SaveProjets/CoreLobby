@@ -37,4 +37,5 @@ public class FriendInfo
     public Integer getFriendCount() { return friendData.getFriendCount(); }
 
     public Integer getFriendDemandCount() { return friendData.getFriendDemandCount(); }
+    public List<String> getFavList(){return friendData.getFavList();}
 }

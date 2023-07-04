@@ -208,6 +208,25 @@ public class FriendData
         return friendPageList;
     }
 
+
+    public List<String> getFavList(){
+        List<String> favList = new ArrayList<String>();
+        try {
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT friend_name FROM " + table + " WHERE player_name = ? AND isFavoris = 1");
+            ps.setString(1, p);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                favList.add(rs.getString("friend_name"));
+            }
+            ps.close();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            return favList;
+        }
+        return favList;
+    }
+
     public Integer getFriendCount() {
         Integer counter = 0;
         try {

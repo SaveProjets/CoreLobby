@@ -1,8 +1,10 @@
 package fr.edminecoreteam.corelobby.account;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import fr.edminecoreteam.corelobby.profile.friends.FriendData;
 import org.bukkit.entity.Player;
 
 
@@ -35,7 +37,6 @@ public class AccountInfo
 
     public Player getPlayer() { return p; }
     public String getSPlayer() { return pS; }
-
     public int getAccountID() { return accountData.getAccountID(); }
     public int getAccountSID() { return accountData.getAccountSID(); }
 
@@ -45,6 +46,7 @@ public class AccountInfo
     public void updateUUIDAccount() { accountData.updateUUIDAccount(); }
 
     public String isOnline() { return accountData.isOnline(); }
+    public int isFavoris(String p){ return accountData.isFavoris(p);}
 
     public Float getFragmentsDames() { return ecoSysData.getFragmentsDames(); }
 

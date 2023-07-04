@@ -103,6 +103,28 @@ public class AccountData
         }
     }
 
+    public int isFavoris(String p){
+        try{
+            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("SELECT isFavoris FROM ed_friends WHERE player_name = ? AND friend_name = ?");
+            preparedStatement.setString(1, p);
+            preparedStatement.setString(2, pS);
+            int result = 0;
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()){
+                result = rs.getInt("isFavoris");
+            }
+            preparedStatement.close();
+            if(result == 1){
+                return 1;
+            }else{
+                return 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
     public String isOnline()
     {
         try

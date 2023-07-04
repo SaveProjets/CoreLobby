@@ -2,6 +2,7 @@ package fr.edminecoreteam.corelobby.profile.friends;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -10,6 +11,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -38,12 +40,15 @@ public class FriendGui implements Listener
     private static ItemStack getSkull(String url) { return SkullNBT.getSkull(url); }
     static HashMap<Player, Integer> pageCount = new HashMap<Player, Integer>();
 
+    private static String favorisSymbol = " §e✯";
+
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
         Player p = (Player)e.getWhoClicked();
         Inventory inv = e.getClickedInventory();
         ItemStack it = e.getCurrentItem();
         InventoryAction a = e.getAction();
+        ClickType c = e.getClick();
         FriendInfo friendInfo = new FriendInfo(p.getName());
         int MaxPage = friendInfo.getFriendPageNumber();
         if (it == null) {  return; }
@@ -94,6 +99,24 @@ public class FriendGui implements Listener
                         p.closeInventory();
                         confirmRemoveFriend(p, target);
                     }
+                }
+            }
+            if (c == ClickType.RIGHT) {
+                if(it.getItemMeta().getDisplayName() == "§8⬅ §7Page Précédente" || it.getItemMeta().getDisplayName() == "§8➡ §7Page Suivante" || it.getItemMeta().getDisplayName() == "§c§lProfil" || it.getItemMeta().getDisplayName() == "§b§lVotre Guild" || it.getItemMeta().getDisplayName() == "§9§lGroupes" || it.getItemMeta().getDisplayName() == "§d§lAmis §c❤" || it.getItemMeta().getDisplayName() == "§d§lAjoutez un ami" || it.getItemMeta().getDisplayName() == "§a§lDemandes d'amis")
+                {
+                    e.setCancelled(true);
+                }else{
+                    if(it.getItemMeta().getDisplayName().contains(favorisSymbol)){
+                        String target = it.getItemMeta().getDisplayName().replace("§a", "");
+                        target = target.replace(favorisSymbol, "");
+                        p.closeInventory();
+                        confirmRemoveFavoris(p, target);
+                    }else{
+                        String target = it.getItemMeta().getDisplayName().replace("§a", "");
+                        p.closeInventory();
+                        confirmAddFavoris(p, target);
+                    }
+
                 }
             }
 
@@ -284,12 +307,21 @@ public class FriendGui implements Listener
             ItemStack friend = new ItemStack(Material.SKULL_ITEM, 1, (byte)3);
             SkullMeta friendM = (SkullMeta) friend.getItemMeta();
             friendM.setOwner(friends);
-            friendM.setDisplayName("§a" + friends);
+            if(friendsInfo.isFavoris(p.getDisplayName()) == 1){
+                friendM.setDisplayName("§a" + friends + favorisSymbol);
+            }else{
+                friendM.setDisplayName("§a" + friends);
+            }
             ArrayList<String> lorefriend = new ArrayList<String>();
             lorefriend.add("");
             lorefriend.add(" §dInformation:");
             lorefriend.add(" §f▶ §7Statut: " + friendsInfo.isOnline());
             lorefriend.add("");
+            if(friendsInfo.isFavoris(p.getDisplayName()) == 1){
+                lorefriend.add("§8➡ §fCLIC DROIT: §cSupprimer des favoris");
+            }else{
+                lorefriend.add("§8➡ §fCLIC DROIT: §eAjouter au favoris");
+            }
             lorefriend.add("§8➡ §fDROP: §8Supprimer");
             friendM.setLore(lorefriend);
             friend.setItemMeta(friendM);
@@ -364,10 +396,23 @@ public class FriendGui implements Listener
         p.playSound(p.getLocation(), Sound.VILLAGER_IDLE, 1.0f, 1.0f);
         p.sendMessage("");
         p.sendMessage(" §7» §d§lInformations §d(amis):");
-        p.sendMessage(" §7● §fVoulez-vous vraiment ajouter §c§l" + target + "§f à vos favoris§7?");
+        p.sendMessage(" §7● §fVoulez-vous vraiment ajouter §e§l" + target + "§f à vos favoris§7?");
         TextComponent confirm = new TextComponent(" §f➡ §a[Confirmer]");
         confirm.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Cliquez ici pour ajouter " + target + " à vos favoris.").create()));
         confirm.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/f favoris add " + target));
+        p.spigot().sendMessage(confirm);
+        p.sendMessage("");
+    }
+
+    private void confirmRemoveFavoris(Player p, String target){
+        p.closeInventory();
+        p.playSound(p.getLocation(), Sound.VILLAGER_IDLE, 1.0f, 1.0f);
+        p.sendMessage("");
+        p.sendMessage(" §7» §d§lInformations §d(amis):");
+        p.sendMessage(" §7● §fVoulez-vous vraiment supprimer §c§l" + target + "§f de vos favoris§7?");
+        TextComponent confirm = new TextComponent(" §f➡ §a[Confirmer]");
+        confirm.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Cliquez ici pour supprimer " + target + " de vos favoris.").create()));
+        confirm.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/f favoris remove " + target));
         p.spigot().sendMessage(confirm);
         p.sendMessage("");
     }
