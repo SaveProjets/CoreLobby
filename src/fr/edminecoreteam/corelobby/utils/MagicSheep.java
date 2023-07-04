@@ -20,6 +20,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
+import static org.bukkit.map.MapPalette.LIGHT_GRAY;
+
 public class MagicSheep implements Listener
 {
     private Map<UUID, Long> lastSpawnTimes = new HashMap<UUID, Long>();
@@ -131,8 +133,48 @@ public class MagicSheep implements Listener
             Player player = event.getPlayer();
             if (sheep.getPassenger() == null) {
                 sheep.setPassenger(player);
-                player.sendMessage("§fVous ridez un §dmoutmout §f!");
+                player.sendMessage("§fVous ridez un " + getChatColorFromSheepColor(sheep.getColor()) + "moutmout §f!");
             }
+        }
+    }
+
+    private ChatColor getChatColorFromSheepColor(DyeColor dyeColor) {
+        // Associez les couleurs de mouton aux couleurs de texte correspondantes
+        switch (dyeColor) {
+            case WHITE:
+                return ChatColor.WHITE;
+            case ORANGE:
+                return ChatColor.GOLD;
+            case MAGENTA:
+                return ChatColor.LIGHT_PURPLE;
+            case LIGHT_BLUE:
+                return ChatColor.BLUE;
+            case YELLOW:
+                return ChatColor.YELLOW;
+            case LIME:
+                return ChatColor.GREEN;
+            case PINK:
+                return ChatColor.LIGHT_PURPLE;
+            case GRAY:
+                return ChatColor.DARK_GRAY;
+            case SILVER:
+                return ChatColor.GRAY;
+            case CYAN:
+                return ChatColor.DARK_AQUA;
+            case PURPLE:
+                return ChatColor.DARK_PURPLE;
+            case BLUE:
+                return ChatColor.DARK_BLUE;
+            case BROWN:
+                return ChatColor.GOLD;
+            case GREEN:
+                return ChatColor.DARK_GREEN;
+            case RED:
+                return ChatColor.RED;
+            case BLACK:
+                return ChatColor.BLACK;
+            default:
+                return ChatColor.LIGHT_PURPLE;
         }
     }
 }

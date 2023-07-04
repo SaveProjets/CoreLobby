@@ -86,39 +86,35 @@ public class FriendGui implements Listener
                     gui(p, pageCount.get(p), MaxPage, 1);
                 }
             }
-            if (a == InventoryAction.DROP_ONE_SLOT)
-            {
-                if (it.getType() == Material.SKULL_ITEM || it.getType() == Material.DIODE)
-                {
-                    if(it.getItemMeta().getDisplayName() == "§8⬅ §7Page Précédente" || it.getItemMeta().getDisplayName() == "§8➡ §7Page Suivante" || it.getItemMeta().getDisplayName() == "§c§lProfil" || it.getItemMeta().getDisplayName() == "§b§lVotre Guild" || it.getItemMeta().getDisplayName() == "§9§lGroupes" || it.getItemMeta().getDisplayName() == "§d§lAmis §c❤" || it.getItemMeta().getDisplayName() == "§d§lAjoutez un ami" || it.getItemMeta().getDisplayName() == "§a§lDemandes d'amis")
-                    {
+            if (a == InventoryAction.DROP_ONE_SLOT) {
+                if (it.getType() == Material.SKULL_ITEM || it.getType() == Material.DIODE) {
+                    if (it.getItemMeta().getDisplayName() == "§8⬅ §7Page Précédente" || it.getItemMeta().getDisplayName() == "§8➡ §7Page Suivante" || it.getItemMeta().getDisplayName() == "§c§lProfil" || it.getItemMeta().getDisplayName() == "§b§lVotre Guild" || it.getItemMeta().getDisplayName() == "§9§lGroupes" || it.getItemMeta().getDisplayName() == "§d§lAmis §c❤" || it.getItemMeta().getDisplayName() == "§d§lAjoutez un ami" || it.getItemMeta().getDisplayName() == "§a§lDemandes d'amis") {
                         e.setCancelled(true);
-                    } else
-                    {
+                    } else {
                         String target = it.getItemMeta().getDisplayName().replace("§a", "");
                         p.closeInventory();
                         confirmRemoveFriend(p, target);
                     }
                 }
             }
-            if (c == ClickType.RIGHT) {
-                if(it.getItemMeta().getDisplayName() == "§8⬅ §7Page Précédente" || it.getItemMeta().getDisplayName() == "§8➡ §7Page Suivante" || it.getItemMeta().getDisplayName() == "§c§lProfil" || it.getItemMeta().getDisplayName() == "§b§lVotre Guild" || it.getItemMeta().getDisplayName() == "§9§lGroupes" || it.getItemMeta().getDisplayName() == "§d§lAmis §c❤" || it.getItemMeta().getDisplayName() == "§d§lAjoutez un ami" || it.getItemMeta().getDisplayName() == "§a§lDemandes d'amis")
-                {
+            if(c == ClickType.RIGHT || c == ClickType.LEFT) {
+                if (it.getItemMeta().getDisplayName() == "§8⬅ §7Page Précédente" || it.getItemMeta().getDisplayName() == "§8➡ §7Page Suivante" || it.getItemMeta().getDisplayName() == "§c§lProfil" || it.getItemMeta().getDisplayName() == "§b§lVotre Guild" || it.getItemMeta().getDisplayName() == "§9§lGroupes" || it.getItemMeta().getDisplayName() == "§d§lAmis §c❤" || it.getItemMeta().getDisplayName() == "§d§lAjoutez un ami" || it.getItemMeta().getDisplayName() == "§a§lDemandes d'amis") {
                     e.setCancelled(true);
-                }else{
-                    if(it.getItemMeta().getDisplayName().contains(favorisSymbol)){
+                } else {
+                    if (it.getItemMeta().getDisplayName().contains(favorisSymbol)) {
                         String target = it.getItemMeta().getDisplayName().replace("§a", "");
                         target = target.replace(favorisSymbol, "");
                         p.closeInventory();
                         confirmRemoveFavoris(p, target);
-                    }else{
+                    } else {
                         String target = it.getItemMeta().getDisplayName().replace("§a", "");
                         p.closeInventory();
                         confirmAddFavoris(p, target);
                     }
-
                 }
+
             }
+
 
         }
         if (it.getType() == Material.SKULL_ITEM && it.getItemMeta().getDisplayName() == "§d§lAjoutez un ami") {
@@ -318,9 +314,9 @@ public class FriendGui implements Listener
             lorefriend.add(" §f▶ §7Statut: " + friendsInfo.isOnline());
             lorefriend.add("");
             if(friendsInfo.isFavoris(p.getDisplayName()) == 1){
-                lorefriend.add("§8➡ §fCLIC DROIT: §cSupprimer des favoris");
+                lorefriend.add("§8➡ §fCLIC: §cSupprimer des favoris");
             }else{
-                lorefriend.add("§8➡ §fCLIC DROIT: §eAjouter au favoris");
+                lorefriend.add("§8➡ §fCLIC: §eAjouter au favoris");
             }
             lorefriend.add("§8➡ §fDROP: §8Supprimer");
             friendM.setLore(lorefriend);
