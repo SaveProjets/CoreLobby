@@ -26,7 +26,9 @@ public class FriendInfo
 
     public int getFriendPageNumber() { return friendData.getFriendPageNumber(); }
 
-    public List<String> getFriendForPage(int page) { return friendData.getFriendForPage(page); }
+    public List<String> getFriendForPage(int page, int playerSort) { return friendData.getFriendForPage(page, playerSort); }
+    public int getFriendSort(){return friendData.getFriendSort();}
+    public void setFriendSort(String p, int newSort){FriendData.setFriendSort(p, newSort);}
 
     public List<String> getFriendRequest() { return friendData.getFriendRequest(); }
 

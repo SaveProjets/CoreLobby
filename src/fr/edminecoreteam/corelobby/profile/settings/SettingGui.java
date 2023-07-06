@@ -57,7 +57,7 @@ public class SettingGui implements Listener
                 {
                     FriendInfo friendInfo = new FriendInfo(p.getName());
                     p.playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
-                    FriendGui.gui(p, 1, friendInfo.getFriendPageNumber(), 1);
+                    FriendGui.gui(p, 1, friendInfo.getFriendPageNumber());
                 }
                 if(it.getItemMeta().getDisplayName() == "§9§lGroupes")
                 {
@@ -662,7 +662,7 @@ public class SettingGui implements Listener
                     loreaccountState.add("");
                     loreaccountState.add(" §dInformations:");
                     loreaccountState.add(" §f▶ §8[Hors-Ligne]");
-                    loreaccountState.add(" §f▶ §8[Occupée]");
+                    loreaccountState.add(" §f▶ §8[Occupé]");
                     loreaccountState.add(" §f▶ §8[Inactif]");
                     loreaccountState.add(" §f➟ §a[En-Ligne]");
                 }
@@ -673,18 +673,18 @@ public class SettingGui implements Listener
                     loreaccountState.add("");
                     loreaccountState.add(" §dInformations:");
                     loreaccountState.add(" §f▶ §8[Hors-Ligne]");
-                    loreaccountState.add(" §f▶ §8[Occupée]");
+                    loreaccountState.add(" §f▶ §8[Occupé]");
                     loreaccountState.add(" §f➟ §e[Inactif]");
                     loreaccountState.add(" §f▶ §8[En-Ligne]");
                 }
-                else if (settingInfo.getAccountState().contains("Occupée"))
+                else if (settingInfo.getAccountState().contains("Occupé"))
                 {
                     loreaccountState.add(" §f▶ §7Toutes les personnes ayant accès");
                     loreaccountState.add("   §7à votre profil vous vois occupée.");
                     loreaccountState.add("");
                     loreaccountState.add(" §dInformations:");
                     loreaccountState.add(" §f▶ §8[Hors-Ligne]");
-                    loreaccountState.add(" §f➟ §5[Occupée]");
+                    loreaccountState.add(" §f➟ §5[Occupé]");
                     loreaccountState.add(" §f▶ §8[Inactif]");
                     loreaccountState.add(" §f▶ §8[En-Ligne]");
                 }
@@ -695,7 +695,7 @@ public class SettingGui implements Listener
                     loreaccountState.add("");
                     loreaccountState.add(" §dInformations:");
                     loreaccountState.add(" §f➟ §c[Hors-Ligne]");
-                    loreaccountState.add(" §f▶ §8[Occupée]");
+                    loreaccountState.add(" §f▶ §8[Occupé]");
                     loreaccountState.add(" §f▶ §8[Inactif]");
                     loreaccountState.add(" §f▶ §8[En-Ligne]");
                 }

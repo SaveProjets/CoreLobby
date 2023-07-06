@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import fr.edminecoreteam.corelobby.profile.friends.FriendData;
+import fr.edminecoreteam.corelobby.profile.settings.SettingData;
+import fr.edminecoreteam.corelobby.profile.settings.SettingInfo;
 import org.bukkit.entity.Player;
 
 
@@ -16,6 +18,7 @@ public class AccountInfo
     private String pS;
     private AccountData accountData;
     private EcoSysData ecoSysData;
+
     //accountInfo = new HashMap<Player, AccountInfo>();
 
     public AccountInfo(Player p) {
@@ -45,7 +48,7 @@ public class AccountInfo
     public boolean hasAccount() { return accountData.hasaccount(); }
     public void updateUUIDAccount() { accountData.updateUUIDAccount(); }
 
-    public String isOnline() { return accountData.isOnline(); }
+    public String isOnline() { if( accountData.isOnline() == "§cHors-Ligne" ){return accountData.isOnline();}else{return accountData.getStatusPlayer();}}
     public int isFavoris(String p){ return accountData.isFavoris(p);}
 
     public Float getFragmentsDames() { return ecoSysData.getFragmentsDames(); }

@@ -73,7 +73,7 @@ public class GroupListPlayerGui implements Listener
                 if(it.getItemMeta().getDisplayName() == "§d§lAmis §c❤")
                 {
                     p.playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
-                    FriendGui.gui(p, 1, friendInfo.getFriendPageNumber(), 1);
+                    FriendGui.gui(p, 1, friendInfo.getFriendPageNumber());
                 }
                 if(it.getItemMeta().getDisplayName() == "§9§lGroupes")
                 {

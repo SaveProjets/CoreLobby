@@ -3,8 +3,7 @@ package fr.edminecoreteam.corelobby.profile.friends;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import fr.edminecoreteam.corelobby.edorm.MySQL;
 
@@ -67,14 +66,52 @@ public class FriendData
         return 0;
     }
 
-    public List<String> getFriendForPage(int Page) {
+    public int getFriendSort(){
+        int friendSort = 1;
+        try{
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT player_friend_sort FROM ed_settings WHERE player_name = ?");
+            ps.setString(1, p);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                friendSort = rs.getInt("player_friend_sort");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return friendSort;
+        }
+        return friendSort;
+    }
+
+    public static void setFriendSort(String p, int newSort){
+        try{
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE ed_settings SET player_friend_sort = ? WHERE player_name = ?");
+            ps.setInt(1, newSort);
+            ps.setString(2, p);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            e.toString();
+        }
+    }
+
+    public List<String> getFriendForPage(int Page, int playerSort) {
         int friendPerPage = 10;
         int friendOnPage = 0;
         int sqlPage = 1;
         List<String> friendList = new ArrayList<String>();
         List<String> friendPageList = new ArrayList<String>();
+
         try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT friend_name FROM " + table + " WHERE player_name = ?");
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT friend_name,isFavoris FROM " + table + " WHERE player_name = ? ORDER BY isFavoris DESC, friend_name ASC");
+            if(playerSort == 1){
+                ps = MySQL.getConnection().prepareStatement("SELECT friend_name FROM " + table + ", ed_login WHERE " + table + ".player_name = ? AND friend_name = ed_login.player_name ORDER BY isOnline DESC, friend_name ASC");
+            }
+            if (playerSort == 2){
+                ps = MySQL.getConnection().prepareStatement("SELECT friend_name FROM " + table + " WHERE player_name = ? ORDER BY friend_name ASC");
+            }
+            if (playerSort == 3){
+                ps = MySQL.getConnection().prepareStatement("SELECT friend_name FROM " + table + ", ed_login WHERE " + table + ".player_name = ? AND friend_name = ed_login.player_name ORDER BY isFavoris DESC, isOnline DESC, friend_name ASC");
+            }
             ps.setString(1, p);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -115,6 +152,79 @@ public class FriendData
         return friendPageList;
     }
 
+   /* public List<String> getFriendForPage(int Page) {
+        int friendPerPage = 10;
+        int friendOnPage = 0;
+        int sqlPage = 1;
+        HashMap<String, Integer> test = new HashMap<String, Integer>();
+        HashMap<String, Integer> pastest = new HashMap<String, Integer>();
+        List<String> friendList = new ArrayList<String>();
+        List<String> friendPageList = new ArrayList<String>();
+
+        try {
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT friend_name, isFavoris FROM " + table + " WHERE player_name = ? ORDER BY friend_name ASC");
+            ps.setString(1, p);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                if (sqlPage != Page)
+                {
+                    if (friendPerPage != friendOnPage)
+                    {
+                        test.put(rs.getString("friend_name"), rs.getInt("isFavoris"));
+                        //friendList.add(rs.getString("friend_name"));
+                        ++friendOnPage;
+                    }
+                    if(friendPerPage == friendOnPage)
+                    {
+                        friendOnPage = 0;
+                        ++sqlPage;
+                        test.put(rs.getString("friend_name"), rs.getInt("isFavoris"));
+                        ++friendOnPage;
+                    }
+                }
+                else if (sqlPage == Page)
+                {
+                    if (friendPerPage != friendOnPage)
+                    {
+                        pastest.put(rs.getString("friend_name"), rs.getInt("isFavoris"));
+
+                        //friendPageList.add(rs.getString("friend_name"));
+                        ++friendOnPage;
+                    }
+                    if(friendPerPage == friendOnPage)
+                    {
+                        pastest.put(rs.getString("friend_name"), rs.getInt("isFavoris"));
+
+                       // friendPageList.add(rs.getString("friend_name"));
+                        ++friendOnPage;
+                    }
+                }
+            }
+            ps.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        List<Map.Entry<String, Integer>> testList = new ArrayList<>(pastest.entrySet());
+        Collections.sort(testList, new Comparator<Map.Entry<String, Integer>>() {
+            @Override
+            public int compare(Map.Entry<String, Integer> entry1, Map.Entry<String, Integer> entry2) {
+                int valueComparison = entry1.getValue().compareTo(entry2.getValue());
+                if(valueComparison != 0){
+                    return valueComparison;
+                }else{
+                    return entry1.getKey().compareTo(entry2.getKey());
+                }
+            }
+        });
+
+        for (Map.Entry<String, Integer> entry : testList){
+            friendPageList.add(entry.getKey());
+        }
+
+        return friendPageList;
+    }*/
     public List<String> getFriendRequest() {
         List<String> requestList = new ArrayList<String>();
         try {

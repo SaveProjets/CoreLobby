@@ -71,7 +71,7 @@ public class FriendDemandGui implements Listener
                 if(it.getItemMeta().getDisplayName() == "§d§lAmis §c❤")
                 {
                     p.playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
-                    FriendGui.gui(p, 1, friendInfo.getFriendPageNumber(), 1);
+                    FriendGui.gui(p, 1, friendInfo.getFriendPageNumber());
                 }
                 if(it.getItemMeta().getDisplayName() == "§8➡ §7Page Suivante")
                 {
@@ -101,7 +101,7 @@ public class FriendDemandGui implements Listener
                 if(it.getItemMeta().getDisplayName() == "§8§l⬇ §7Retour §8§l⬇")
                 {
                     p.playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
-                    FriendGui.gui(p, 1, FMaxPage, 1);
+                    FriendGui.gui(p, 1, FMaxPage);
                 }
             }
             if (a == InventoryAction.DROP_ONE_SLOT)

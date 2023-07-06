@@ -50,7 +50,7 @@ public class LinkGui implements Listener
                 {
                     FriendInfo friendInfo = new FriendInfo(p.getName());
                     p.playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
-                    FriendGui.gui(p, 1, friendInfo.getFriendPageNumber(), 1);
+                    FriendGui.gui(p, 1, friendInfo.getFriendPageNumber());
                 }
                 if(it.getItemMeta().getDisplayName() == "§9§lGroupes")
                 {

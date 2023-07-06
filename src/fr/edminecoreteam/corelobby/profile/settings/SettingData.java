@@ -29,26 +29,27 @@ public class SettingData
         {
             try
             {
-                PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("INSERT INTO ed_settings (player_name, player_uuid, player_lang, player_friend_request, player_group_request, player_guild_request, player_private_message, player_profil_view, player_players_display, player_account_state, player_chat_mention, player_group_follow, player_live_notification, player_message_connection, player_night_or_day, player_auto_tip, player_lobby_protection, player_guild_chat, player_guild_notification) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("INSERT INTO ed_settings (player_name, player_uuid, player_lang, player_friend_sort, player_friend_request, player_group_request, player_guild_request, player_private_message, player_profil_view, player_players_display, player_account_state, player_chat_mention, player_group_follow, player_live_notification, player_message_connection, player_night_or_day, player_auto_tip, player_lobby_protection, player_guild_chat, player_guild_notification) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 preparedStatement.setString(1, p.getName()); /*player_name*/
                 preparedStatement.setString(2, p.getUniqueId().toString()); /*player_name*/
                 preparedStatement.setInt(3, 0); /*player_lang*/
-                preparedStatement.setString(4, "bas"); /*player_friend_request*/
-                preparedStatement.setString(5, "bas"); /*player_group_request*/
-                preparedStatement.setString(6, "bas"); /*player_guild_request*/
-                preparedStatement.setString(7, "bas"); /*player_private_message*/
-                preparedStatement.setString(8, "bas"); /*player_profil_view*/
-                preparedStatement.setString(9, "bas"); /*player_players_display*/
-                preparedStatement.setString(10, "En-Ligne"); /*player_account_state*/
-                preparedStatement.setString(11, "bas"); /*player_chat_mention*/
-                preparedStatement.setString(12, "activer"); /*player_group_follow*/
-                preparedStatement.setString(13, "activer"); /*player_live_notification*/
-                preparedStatement.setString(14, "aucun"); /*player_message_connection*/
-                preparedStatement.setString(15, "desactiver"); /*player_night_or_day*/
-                preparedStatement.setString(16, "desactiver"); /*player_auto_tip*/
-                preparedStatement.setString(17, "desactiver"); /*player_lobby_protection*/
-                preparedStatement.setString(18, "bas"); /*player_guild_chat*/
-                preparedStatement.setString(19, "desactiver"); /*player_guild_notification*/
+                preparedStatement.setInt(4, 1);/*player_friend_sort*/
+                preparedStatement.setString(5, "bas"); /*player_friend_request*/
+                preparedStatement.setString(6, "bas"); /*player_group_request*/
+                preparedStatement.setString(7, "bas"); /*player_guild_request*/
+                preparedStatement.setString(8, "bas"); /*player_private_message*/
+                preparedStatement.setString(9, "bas"); /*player_profil_view*/
+                preparedStatement.setString(10, "bas"); /*player_players_display*/
+                preparedStatement.setString(11, "En-Ligne"); /*player_account_state*/
+                preparedStatement.setString(12, "bas"); /*player_chat_mention*/
+                preparedStatement.setString(13, "activer"); /*player_group_follow*/
+                preparedStatement.setString(14, "activer"); /*player_live_notification*/
+                preparedStatement.setString(15, "aucun"); /*player_message_connection*/
+                preparedStatement.setString(16, "desactiver"); /*player_night_or_day*/
+                preparedStatement.setString(17, "desactiver"); /*player_auto_tip*/
+                preparedStatement.setString(18, "desactiver"); /*player_lobby_protection*/
+                preparedStatement.setString(19, "bas"); /*player_guild_chat*/
+                preparedStatement.setString(20, "desactiver"); /*player_guild_notification*/
                 preparedStatement.execute();
                 preparedStatement.close();
             }
@@ -912,7 +913,7 @@ public class SettingData
             try
             {
                 PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("UPDATE ed_settings SET player_account_state = ? WHERE player_name = ?");
-                preparedStatement.setString(1, "Occupée");
+                preparedStatement.setString(1, "Occupé");
                 preparedStatement.setString(2, p.getName());
                 preparedStatement.executeUpdate();
                 preparedStatement.close();
@@ -922,7 +923,7 @@ public class SettingData
                 e.toString();
             }
         }
-        else if (getAccountState().contains("Occupée"))
+        else if (getAccountState().contains("Occupé"))
         {
             try
             {

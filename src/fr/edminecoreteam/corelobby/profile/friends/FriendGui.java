@@ -1,8 +1,6 @@
 package fr.edminecoreteam.corelobby.profile.friends;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -77,13 +75,13 @@ public class FriendGui implements Listener
                 {
                     p.playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
                     pageCount.put(p, pageCount.get(p) + 1);
-                    gui(p, pageCount.get(p), MaxPage, 1);
+                    gui(p, pageCount.get(p), MaxPage);
                 }
                 if(it.getItemMeta().getDisplayName() == "§8⬅ §7Page Précédente")
                 {
                     p.playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
                     pageCount.put(p, pageCount.get(p) - 1);
-                    gui(p, pageCount.get(p), MaxPage, 1);
+                    gui(p, pageCount.get(p), MaxPage);
                 }
             }
             if (a == InventoryAction.DROP_ONE_SLOT) {
@@ -98,19 +96,31 @@ public class FriendGui implements Listener
                 }
             }
             if(c == ClickType.RIGHT || c == ClickType.LEFT) {
-                if (it.getItemMeta().getDisplayName() == "§8⬅ §7Page Précédente" || it.getItemMeta().getDisplayName() == "§8➡ §7Page Suivante" || it.getItemMeta().getDisplayName() == "§c§lProfil" || it.getItemMeta().getDisplayName() == "§b§lVotre Guild" || it.getItemMeta().getDisplayName() == "§9§lGroupes" || it.getItemMeta().getDisplayName() == "§d§lAmis §c❤" || it.getItemMeta().getDisplayName() == "§d§lAjoutez un ami" || it.getItemMeta().getDisplayName() == "§a§lDemandes d'amis") {
-                    e.setCancelled(true);
-                } else {
-                    if (it.getItemMeta().getDisplayName().contains(favorisSymbol)) {
-                        String target = it.getItemMeta().getDisplayName().replace("§a", "");
-                        target = target.replace(favorisSymbol, "");
-                        p.closeInventory();
-                        confirmRemoveFavoris(p, target);
+                if (it.getType() == Material.SKULL_ITEM || it.getType() == Material.DIODE) {
+                    if (it.getItemMeta().getDisplayName() == "§8⬅ §7Page Précédente" || it.getItemMeta().getDisplayName() == "§8➡ §7Page Suivante" || it.getItemMeta().getDisplayName() == "§c§lProfil" || it.getItemMeta().getDisplayName() == "§b§lVotre Guild" || it.getItemMeta().getDisplayName() == "§9§lGroupes" || it.getItemMeta().getDisplayName() == "§d§lAmis §c❤" || it.getItemMeta().getDisplayName() == "§d§lAjoutez un ami" || it.getItemMeta().getDisplayName() == "§a§lDemandes d'amis") {
+                        e.setCancelled(true);
                     } else {
-                        String target = it.getItemMeta().getDisplayName().replace("§a", "");
-                        p.closeInventory();
-                        confirmAddFavoris(p, target);
+                        if (it.getItemMeta().getDisplayName().contains(favorisSymbol)) {
+                            String target = it.getItemMeta().getDisplayName().replace("§a", "");
+                            target = target.replace(favorisSymbol, "");
+                            p.closeInventory();
+                            confirmRemoveFavoris(p, target);
+                        } else {
+                            String target = it.getItemMeta().getDisplayName().replace("§a", "");
+                            p.closeInventory();
+                            confirmAddFavoris(p, target);
+                        }
                     }
+                }
+                if (it.getItemMeta().getDisplayName().equalsIgnoreCase("§f§lTriez vos amis")){
+                    if(friendInfo.getFriendSort() == 2){
+                        friendInfo.setFriendSort(p.getName(), 3);
+                    }else if(friendInfo.getFriendSort() == 3){
+                        friendInfo.setFriendSort(p.getName(), 1);
+                    }else{
+                        friendInfo.setFriendSort(p.getName(), 2);
+                    }
+                    gui(p, 1, friendInfo.getFriendPageNumber());
                 }
 
             }
@@ -122,7 +132,8 @@ public class FriendGui implements Listener
         }
     }
 
-    public static void gui(Player p, int Page, int MaxPage, int sort) {
+    public static void gui(Player p, int Page, int MaxPage) {
+
 
         Inventory inv = Bukkit.createInventory(null, 54, "§8Profil (Amis) " + Page + "/" + MaxPage);
         p.openInventory(inv);
@@ -280,6 +291,7 @@ public class FriendGui implements Listener
         addfriend.setItemMeta(addfriendM);
         inv.setItem(4, addfriend);
 
+
         ItemStack sortIt = new ItemStack(Material.MAGMA_CREAM, 1);
         ItemMeta sortItM = sortIt.getItemMeta();
         sortItM.setDisplayName("§f§lTriez vos amis");
@@ -289,15 +301,35 @@ public class FriendGui implements Listener
         loresortIt.add(" §f▶ §7Cliquez pour trier facilement");
         loresortIt.add(" §f  §7votre liste d'amis.");
         loresortIt.add("");
+
+        loresortIt.add(" §dTrier par:");
+        if (friendInfo.getFriendSort() == 1){
+            loresortIt.add(" §f▶ §aConnectés d'abord");
+            loresortIt.add(" §f▶ §8Ordre Alphabétique");
+            loresortIt.add(" §f▶ §8Favoris d'abord");
+        }
+        if (friendInfo.getFriendSort() == 2){
+            loresortIt.add(" §f▶ §8Connectés d'abord");
+            loresortIt.add(" §f▶ §aOrdre Alphabétique");
+            loresortIt.add(" §f▶ §8Favoris d'abord");
+        }
+        if (friendInfo.getFriendSort() == 3){
+            loresortIt.add(" §f▶ §8Connectés d'abord");
+            loresortIt.add(" §f▶ §8Ordre Alphabétique");
+            loresortIt.add(" §f▶ §aFavoris d'abord");
+        }
+        loresortIt.add("");
         loresortIt.add("§8➡ §fCliquez pour y accéder.");
         sortItM.setLore(loresortIt);
         sortIt.setItemMeta(sortItM);
         inv.setItem(5, sortIt);
 
 
+       // friendInfo = setTrie(p, friendInfo, Page);
+
         int slot = 20;
         int friendsCount = 0;
-        for (String friends : friendInfo.getFriendForPage(Page)) {
+        for (String friends : friendInfo.getFriendForPage(Page, friendInfo.getFriendSort())) {
             ++friendsCount;
             AccountInfo friendsInfo = new AccountInfo(friends);
             ItemStack friend = new ItemStack(Material.SKULL_ITEM, 1, (byte)3);
@@ -343,6 +375,13 @@ public class FriendGui implements Listener
         }
 
     }
+
+    /*private static FriendInfo setTrie(Player p, FriendInfo friendInfo, int page){
+        if(getSort.get(p) == 1){
+            Collections.sort(friendInfo.getFriendForPage(page,));
+        }
+        return friendInfo;
+    }*/
 
     private void addFriend(Player p) {
         PlayerChatListener.getChatBoxAddFriend().add(p);
