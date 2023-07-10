@@ -145,7 +145,7 @@ public class PlayerChatListener implements Listener
             {
                 if (rankInfo.getRankID() > 0)
                 {
-                    e.setFormat(Rank.powerToRank(rankInfo.getRankID()).getDisplayName() + p.getName() + Rank.powerToRank(rankInfo.getRankID()).getSuffix() + " §8» §f" + e.getMessage().replace("&", "§"));
+                    e.setFormat(Rank.powerToRank(rankInfo.getRankID()).getDisplayName() + p.getName() + " §8» §f" + e.getMessage().replace("&", "§"));
                     for (Player players : Bukkit.getOnlinePlayers()) {
                         players.sendMessage(e.getFormat());
                     }
@@ -162,14 +162,14 @@ public class PlayerChatListener implements Listener
             {
                 if (rankInfo.getRankID() >= 3)
                 {
-                    e.setFormat(Rank.powerToRank(rankInfo.getRankID()).getDisplayName() + p.getName() + Rank.powerToRank(rankInfo.getRankID()).getSuffix() + " §8» §f" + e.getMessage());
+                    e.setFormat(Rank.powerToRank(rankInfo.getRankID()).getDisplayName() + p.getName() + " §8» §f" + e.getMessage());
                     for (Player players : Bukkit.getOnlinePlayers()) {
                         players.sendMessage(e.getFormat());
                     }
                 }
                 else if (rankInfo.getRankID() < 3)
                 {
-                    e.setFormat(Rank.powerToRank(rankInfo.getRankID()).getDisplayName() + p.getName() + Rank.powerToRank(rankInfo.getRankID()).getSuffix() + " §8» §7" + e.getMessage());
+                    e.setFormat(Rank.powerToRank(rankInfo.getRankID()).getDisplayName() + p.getName() + " §8» §7" + e.getMessage());
                     for (Player players : Bukkit.getOnlinePlayers()) {
                         players.sendMessage(e.getFormat());
                     }
@@ -177,14 +177,14 @@ public class PlayerChatListener implements Listener
             }
             if (rankInfo.getRankType().equalsIgnoreCase("module"))
             {
-                e.setFormat(Rank.powerToRank(rankInfo.getRankModule()).getDisplayName() + p.getName() + Rank.powerToRank(rankInfo.getRankModule()).getSuffix() + " §8» §f" + e.getMessage());
+                e.setFormat(Rank.powerToRank(rankInfo.getRankModule()).getDisplayName() + p.getName() + " §8» §f" + e.getMessage());
                 for (Player players : Bukkit.getOnlinePlayers()) {
                     players.sendMessage(e.getFormat());
                 }
             }
             if (rankInfo.getRankType().equalsIgnoreCase("staff"))
             {
-                e.setFormat(Rank.powerToRank(rankInfo.getRankModule()).getDisplayName() + p.getName() + Rank.powerToRank(rankInfo.getRankModule()).getSuffix() + " §8» §f" + e.getMessage().replace("&", "§"));
+                e.setFormat(Rank.powerToRank(rankInfo.getRankModule()).getDisplayName() + p.getName() + " §8» §f" + e.getMessage().replace("&", "§"));
                 for (Player players : Bukkit.getOnlinePlayers()) {
                     players.sendMessage(e.getFormat());
                 }
