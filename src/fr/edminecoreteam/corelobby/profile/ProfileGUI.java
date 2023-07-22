@@ -298,7 +298,7 @@ public class ProfileGUI implements Listener
                         lorestat.add("");
                         lorestat.add(" §dInformations:");
                         lorestat.add(" §f▶ §8[Hors-Ligne]");
-                        lorestat.add(" §f▶ §8[Occupée]");
+                        lorestat.add(" §f▶ §8[Occupé]");
                         lorestat.add(" §f▶ §8[Inactif]");
                         lorestat.add(" §f➟ §a[En-Ligne]");
                     }
@@ -309,18 +309,18 @@ public class ProfileGUI implements Listener
                         lorestat.add("");
                         lorestat.add(" §dInformations:");
                         lorestat.add(" §f▶ §8[Hors-Ligne]");
-                        lorestat.add(" §f▶ §8[Occupée]");
+                        lorestat.add(" §f▶ §8[Occupé]");
                         lorestat.add(" §f➟ §e[Inactif]");
                         lorestat.add(" §f▶ §8[En-Ligne]");
                     }
-                    else if (settingInfo.getAccountState().contains("Occupée"))
+                    else if (settingInfo.getAccountState().contains("Occupé"))
                     {
                         lorestat.add(" §f▶ §7Toutes les personnes ayant accès");
-                        lorestat.add("   §7à votre profil vous vois occupée.");
+                        lorestat.add("   §7à votre profil vous vois occupé.");
                         lorestat.add("");
                         lorestat.add(" §dInformations:");
                         lorestat.add(" §f▶ §8[Hors-Ligne]");
-                        lorestat.add(" §f➟ §5[Occupée]");
+                        lorestat.add(" §f➟ §5[Occupé]");
                         lorestat.add(" §f▶ §8[Inactif]");
                         lorestat.add(" §f▶ §8[En-Ligne]");
                     }
@@ -331,7 +331,7 @@ public class ProfileGUI implements Listener
                         lorestat.add("");
                         lorestat.add(" §dInformations:");
                         lorestat.add(" §f➟ §c[Hors-Ligne]");
-                        lorestat.add(" §f▶ §8[Occupée]");
+                        lorestat.add(" §f▶ §8[Occupé]");
                         lorestat.add(" §f▶ §8[Inactif]");
                         lorestat.add(" §f▶ §8[En-Ligne]");
                     }
@@ -362,7 +362,7 @@ public class ProfileGUI implements Listener
                     lorestats.add("");
                     lorestats.add(" §aDescription:");
                     lorestats.add(" §f▶ §7Accédez à vos statistiques");
-                    lorestats.add(" §f  §7en fonction des jeux joué.");
+                    lorestats.add(" §f  §7en fonction des jeux joués.");
                     lorestats.add("");
                     lorestats.add("§8➡ §fCliquez pour y accéder.");
                     statsM.setLore(lorestats);
@@ -377,7 +377,7 @@ public class ProfileGUI implements Listener
                     loresuccess.add(" §aDescription:");
                     loresuccess.add(" §f▶ §7Accédez à vos succès que vous");
                     loresuccess.add(" §f  §7avez réalisés en terminant les");
-                    loresuccess.add(" §f  §7quêtes proposer par le serveur.");
+                    loresuccess.add(" §f  §7quêtes proposées par le serveur.");
                     loresuccess.add("");
                     loresuccess.add("§8➡ §fCliquez pour y accéder.");
                     successM.setLore(loresuccess);

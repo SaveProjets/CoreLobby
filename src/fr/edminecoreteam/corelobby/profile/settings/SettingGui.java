@@ -680,7 +680,7 @@ public class SettingGui implements Listener
                 else if (settingInfo.getAccountState().contains("Occupé"))
                 {
                     loreaccountState.add(" §f▶ §7Toutes les personnes ayant accès");
-                    loreaccountState.add("   §7à votre profil vous vois occupée.");
+                    loreaccountState.add("   §7à votre profil vous vois occupé.");
                     loreaccountState.add("");
                     loreaccountState.add(" §dInformations:");
                     loreaccountState.add(" §f▶ §8[Hors-Ligne]");

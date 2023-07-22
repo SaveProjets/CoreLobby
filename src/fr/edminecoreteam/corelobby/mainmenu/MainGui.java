@@ -72,8 +72,8 @@ public class MainGui implements Listener
                     ArrayList<String> lorehost = new ArrayList<String>();
                     lorehost.add("");
                     lorehost.add(" §aDescription:");
-                    lorehost.add(" §f▶ §7Ici, libre a votre imagination de");
-                    lorehost.add(" §f  §7créez ou jouez sur des parties custom.");
+                    lorehost.add(" §f▶ §7Ici, libre à votre imagination de");
+                    lorehost.add(" §f  §7créer ou jouer sur des parties custom.");
                     lorehost.add("");
                     lorehost.add("§8➡ §fCliquez pour y accéder.");
                     hostM.setLore(lorehost);
@@ -129,7 +129,7 @@ public class MainGui implements Listener
                     ArrayList<String> lorevipZone = new ArrayList<String>();
                     lorevipZone.add("");
                     lorevipZone.add(" §aDescription:");
-                    lorevipZone.add(" §f▶ §7Rendez-vous pour un allé");
+                    lorevipZone.add(" §f▶ §7Rendez-vous pour un aller");
                     lorevipZone.add(" §f▶ §7direct vers la zone VIP.");
                     lorevipZone.add("");
                     lorevipZone.add("§8➡ §fCliquez pour y accéder.");
@@ -182,7 +182,7 @@ public class MainGui implements Listener
                         ArrayList<String> loreshortGame = new ArrayList<String>();
                         loreshortGame.add("");
                         loreshortGame.add(" §aDescription:");
-                        loreshortGame.add(" §f▶ §7Vous voulez pas vous");
+                        loreshortGame.add(" §f▶ §7Vous ne voulez pas vous");
                         loreshortGame.add(" §f  §7prendre la tête? ");
                         loreshortGame.add(" §f▶ §7Jouez rapidement sur les");
                         loreshortGame.add(" §f  §7mini-jeux de votre choix.");
