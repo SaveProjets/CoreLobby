@@ -29,14 +29,15 @@ public class PlayerJoinListener implements Listener
     @EventHandler
     private void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
+        SpawnAnimationLikeGTA.run(p);
+    }
+
+    public static void loadPlayerInfo(Player p)
+    {
         RankInfo rankInfo  = new RankInfo(p);
         SettingInfo settingInfo = new SettingInfo(p);
         BarListener barListener = new BarListener(p);
         LinkData linkData = new LinkData(p.getUniqueId().toString());
-        Location spawn = new Location(Bukkit.getWorld(core.getConfig().getString("Spawn.name")),
-                (float)core.getConfig().getLong("Spawn.x"), (float)core.getConfig().getLong("Spawn.y"), (float)core.getConfig().getLong("Spawn.z"),
-                (float)core.getConfig().getLong("Spawn.t"), (float)core.getConfig().getLong("Spawn.b"));
-        p.teleport(spawn);
         p.setGameMode(GameMode.ADVENTURE);
         p.playSound(p.getLocation(), Sound.FIREWORK_LAUNCH, 1.0f, 1.0f);
         if (rankInfo.getRankID() >= 3) { getCanDoubleJump().add(p); }
@@ -54,9 +55,7 @@ public class PlayerJoinListener implements Listener
         }
         p.sendTitle("§e§kII§r §6§lEDMINE§r §f§lNETWORK§r §e§kII§r", "§7Bon retour à la maison.");
         barListener.launch();
-
         linkData.createLink();
+        Core.getInstance().getScoreboardManager().onLogin(p);
     }
-
-
 }

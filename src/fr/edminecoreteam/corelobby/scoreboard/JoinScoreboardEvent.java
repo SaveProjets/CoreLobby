@@ -14,6 +14,5 @@ public class JoinScoreboardEvent implements Listener
     public void onJoin(PlayerJoinEvent e)
     {
         Player p = e.getPlayer();
-        Core.getInstance().getScoreboardManager().onLogin(p);
     }
 }

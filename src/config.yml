@@ -4,6 +4,43 @@
 # Version: 0.1
 #
 
+SpawnAnimation:
+  loc1:
+    name: 'hub'
+    x: 0.5
+    y: 200.0
+    z: -102.0
+    t: 179.3
+    b: 83.2
+  loc2:
+    name: 'hub'
+    x: 0.5
+    y: 200.0
+    z: 0.5
+    t: 179.3
+    b: 83.2
+  loc3:
+    name: 'hub'
+    x: 0.5
+    y: 150.0
+    z: 0.5
+    t: 179.3
+    b: 83.2
+  loc4:
+    name: 'hub'
+    x: 0.5
+    y: 125.0
+    z: 0.5
+    t: 179.3
+    b: 83.2
+  loc5:
+    name: 'hub'
+    x: 0.5
+    y: 90.0
+    z: 0.5
+    t: -180.0
+    b: -4.0
+
 Spawn:
   name: 'none'
   x: 0
