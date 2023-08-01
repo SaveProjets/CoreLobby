@@ -37,7 +37,12 @@ public class SpawnAnimationLikeGTA
                 int speed = 25;
                 Vector dir = loc2.toVector().subtract(p.getLocation().toVector()).normalize();
                 p.setVelocity(dir.multiply(speed));
-                clearEffects(p);
+                new BukkitRunnable() {
+
+                    public void run() {
+                        clearEffects(p);
+                    }
+                }.runTaskLater((Plugin) core, 20);
             }
         }.runTaskLater((Plugin) core, 50L);
 
@@ -51,7 +56,12 @@ public class SpawnAnimationLikeGTA
                         (float)core.getConfig().getLong("SpawnAnimation.loc3.t"), (float)core.getConfig().getLong("SpawnAnimation.loc3.b"));
 
                 p.teleport(loc3);
-                clearEffects(p);
+                new BukkitRunnable() {
+
+                    public void run() {
+                        clearEffects(p);
+                    }
+                }.runTaskLater((Plugin) core, 20);
             }
         }.runTaskLater((Plugin) core, 120L);
 
@@ -65,7 +75,12 @@ public class SpawnAnimationLikeGTA
                         (float)core.getConfig().getLong("SpawnAnimation.loc4.t"), (float)core.getConfig().getLong("SpawnAnimation.loc4.b"));
 
                 p.teleport(loc4);
-                clearEffects(p);
+                new BukkitRunnable() {
+
+                    public void run() {
+                        clearEffects(p);
+                    }
+                }.runTaskLater((Plugin) core, 20);
             }
         }.runTaskLater((Plugin) core, 150L);
 
@@ -79,7 +94,12 @@ public class SpawnAnimationLikeGTA
                         (float)core.getConfig().getLong("SpawnAnimation.loc5.t"), (float)core.getConfig().getLong("SpawnAnimation.loc5.b"));
 
                 p.teleport(loc5);
-                clearEffects(p);
+                new BukkitRunnable() {
+
+                    public void run() {
+                        clearEffects(p);
+                    }
+                }.runTaskLater((Plugin) core, 20);
                 PlayerJoinListener.loadPlayerInfo(p);
                 if (PlayerJoinListener.getCanDoubleJump().contains(p)) {
                     p.setAllowFlight(true);
