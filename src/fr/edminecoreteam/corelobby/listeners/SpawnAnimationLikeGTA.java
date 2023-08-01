@@ -4,6 +4,7 @@ import fr.edminecoreteam.corelobby.Core;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
@@ -18,7 +19,7 @@ public class SpawnAnimationLikeGTA
     public static void run(Player p)
     {
         p.setGameMode(GameMode.SPECTATOR);
-
+        p.sendTitle("", "§aChargement...");
         Location loc1 = new Location(Bukkit.getWorld(core.getConfig().getString("SpawnAnimation.loc1.name")),
                 (float)core.getConfig().getLong("SpawnAnimation.loc1.x"), (float)core.getConfig().getLong("SpawnAnimation.loc1.y"),
                 (float)core.getConfig().getLong("SpawnAnimation.loc1.z"),
@@ -28,7 +29,6 @@ public class SpawnAnimationLikeGTA
         new BukkitRunnable() {
 
             public void run() {
-                p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 99999, 1));
                 Location loc2 = new Location(Bukkit.getWorld(core.getConfig().getString("SpawnAnimation.loc2.name")),
                         (float)core.getConfig().getLong("SpawnAnimation.loc2.x"), (float)core.getConfig().getLong("SpawnAnimation.loc2.y"),
                         (float)core.getConfig().getLong("SpawnAnimation.loc2.z"),
@@ -43,12 +43,20 @@ public class SpawnAnimationLikeGTA
                         p.setVelocity(dir.multiply(speed));
                     }
                 }.runTaskLater((Plugin) core, 5);
+
                 new BukkitRunnable() {
 
                     public void run() {
-                        clearEffects(p);
+                        p.setVelocity(dir.multiply(speed));
                     }
                 }.runTaskLater((Plugin) core, 10);
+
+                new BukkitRunnable() {
+
+                    public void run() {
+                        p.setVelocity(dir.multiply(speed));
+                    }
+                }.runTaskLater((Plugin) core, 15);
             }
         }.runTaskLater((Plugin) core, 30L);
 
@@ -62,6 +70,7 @@ public class SpawnAnimationLikeGTA
                         (float)core.getConfig().getLong("SpawnAnimation.loc3.t"), (float)core.getConfig().getLong("SpawnAnimation.loc3.b"));
 
                 p.teleport(loc3);
+                p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0f, 1.0f);
                 new BukkitRunnable() {
 
                     public void run() {
@@ -81,6 +90,7 @@ public class SpawnAnimationLikeGTA
                         (float)core.getConfig().getLong("SpawnAnimation.loc4.t"), (float)core.getConfig().getLong("SpawnAnimation.loc4.b"));
 
                 p.teleport(loc4);
+                p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0f, 1.0f);
                 new BukkitRunnable() {
 
                     public void run() {
@@ -100,6 +110,7 @@ public class SpawnAnimationLikeGTA
                         (float)core.getConfig().getLong("SpawnAnimation.loc5.t"), (float)core.getConfig().getLong("SpawnAnimation.loc5.b"));
 
                 p.teleport(loc5);
+                p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0f, 1.0f);
                 new BukkitRunnable() {
 
                     public void run() {
