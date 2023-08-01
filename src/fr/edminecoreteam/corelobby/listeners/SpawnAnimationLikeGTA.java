@@ -20,6 +20,7 @@ public class SpawnAnimationLikeGTA
     {
         p.setGameMode(GameMode.SPECTATOR);
         p.sendTitle("", "§aChargement...");
+        p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1.0f, 1.0f);
         Location loc1 = new Location(Bukkit.getWorld(core.getConfig().getString("SpawnAnimation.loc1.name")),
                 (float)core.getConfig().getLong("SpawnAnimation.loc1.x"), (float)core.getConfig().getLong("SpawnAnimation.loc1.y"),
                 (float)core.getConfig().getLong("SpawnAnimation.loc1.z"),
@@ -34,10 +35,11 @@ public class SpawnAnimationLikeGTA
                         (float)core.getConfig().getLong("SpawnAnimation.loc2.z"),
                         (float)core.getConfig().getLong("SpawnAnimation.loc2.t"), (float)core.getConfig().getLong("SpawnAnimation.loc2.b"));
 
+                int startspeed = 10;
                 int speed = 25;
                 Vector dir = loc2.toVector().subtract(p.getLocation().toVector()).normalize();
-                p.playSound(p.getLocation(), Sound.ENDERDRAGON_GROWL, 0.5f, 1.0f);
-                p.setVelocity(dir.multiply(speed));
+                p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0f, 0.5f);
+                p.setVelocity(dir.multiply(startspeed));
                 new BukkitRunnable() {
 
                     public void run() {
@@ -72,13 +74,6 @@ public class SpawnAnimationLikeGTA
                         p.setVelocity(dir.multiply(speed));
                     }
                 }.runTaskLater((Plugin) core, 25);
-
-                new BukkitRunnable() {
-
-                    public void run() {
-                        p.setVelocity(dir.multiply(speed));
-                    }
-                }.runTaskLater((Plugin) core, 30);
             }
         }.runTaskLater((Plugin) core, 30L);
 
@@ -92,7 +87,7 @@ public class SpawnAnimationLikeGTA
                         (float)core.getConfig().getLong("SpawnAnimation.loc3.t"), (float)core.getConfig().getLong("SpawnAnimation.loc3.b"));
 
                 p.teleport(loc3);
-                p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0f, 1.0f);
+                p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0f, 0.5f);
                 new BukkitRunnable() {
 
                     public void run() {
@@ -112,7 +107,7 @@ public class SpawnAnimationLikeGTA
                         (float)core.getConfig().getLong("SpawnAnimation.loc4.t"), (float)core.getConfig().getLong("SpawnAnimation.loc4.b"));
 
                 p.teleport(loc4);
-                p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0f, 1.0f);
+                p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0f, 0.5f);
                 new BukkitRunnable() {
 
                     public void run() {
@@ -132,7 +127,7 @@ public class SpawnAnimationLikeGTA
                         (float)core.getConfig().getLong("SpawnAnimation.loc5.t"), (float)core.getConfig().getLong("SpawnAnimation.loc5.b"));
 
                 p.teleport(loc5);
-                p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0f, 1.0f);
+                p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0f, 0.5f);
                 new BukkitRunnable() {
 
                     public void run() {
