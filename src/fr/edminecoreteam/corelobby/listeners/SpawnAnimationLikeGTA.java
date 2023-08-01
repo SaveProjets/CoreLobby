@@ -20,12 +20,12 @@ public class SpawnAnimationLikeGTA
     {
         p.setGameMode(GameMode.SPECTATOR);
         p.sendTitle("", "§aChargement...");
-        p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1.0f, 1.0f);
         Location loc1 = new Location(Bukkit.getWorld(core.getConfig().getString("SpawnAnimation.loc1.name")),
                 (float)core.getConfig().getLong("SpawnAnimation.loc1.x"), (float)core.getConfig().getLong("SpawnAnimation.loc1.y"),
                 (float)core.getConfig().getLong("SpawnAnimation.loc1.z"),
                 (float)core.getConfig().getLong("SpawnAnimation.loc1.t"), (float)core.getConfig().getLong("SpawnAnimation.loc1.b"));
         p.teleport(loc1);
+        p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1.0f, 1.0f);
 
         new BukkitRunnable() {
 
@@ -36,7 +36,7 @@ public class SpawnAnimationLikeGTA
                         (float)core.getConfig().getLong("SpawnAnimation.loc2.t"), (float)core.getConfig().getLong("SpawnAnimation.loc2.b"));
 
                 int startspeed = 10;
-                int speed = 25;
+                int speed = 10;
                 Vector dir = loc2.toVector().subtract(p.getLocation().toVector()).normalize();
                 p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0f, 0.5f);
                 p.setVelocity(dir.multiply(startspeed));
