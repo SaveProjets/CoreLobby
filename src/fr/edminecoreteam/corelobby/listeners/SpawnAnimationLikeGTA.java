@@ -50,21 +50,7 @@ public class SpawnAnimationLikeGTA
                     public void run() {
                         p.setVelocity(dir.multiply(speed));
                     }
-                }.runTaskLater((Plugin) core, 10);
-
-                new BukkitRunnable() {
-
-                    public void run() {
-                        p.setVelocity(dir.multiply(speed));
-                    }
                 }.runTaskLater((Plugin) core, 15);
-
-                new BukkitRunnable() {
-
-                    public void run() {
-                        p.setVelocity(dir.multiply(speed));
-                    }
-                }.runTaskLater((Plugin) core, 20);
             }
         }.runTaskLater((Plugin) core, 30L);
 
