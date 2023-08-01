@@ -31,12 +31,13 @@ public class SpawnAnimationLikeGTA
         new BukkitRunnable() {
 
             public void run() {
+                p.sendTitle("§r", "§r");
                 Location loc2 = new Location(Bukkit.getWorld(core.getConfig().getString("SpawnAnimation.loc2.name")),
                         (float)core.getConfig().getLong("SpawnAnimation.loc2.x"), (float)core.getConfig().getLong("SpawnAnimation.loc2.y"),
                         (float)core.getConfig().getLong("SpawnAnimation.loc2.z"),
                         (float)core.getConfig().getLong("SpawnAnimation.loc2.t"), (float)core.getConfig().getLong("SpawnAnimation.loc2.b"));
 
-                LocationTracer tracer = new LocationTracer(p, loc1, loc2, 150);
+                LocationTracer tracer = new LocationTracer(p, loc1, loc2, 80);
                 tracer.runTaskTimer(core, 0L, 1L);
 
                 /*int speed = 11;
