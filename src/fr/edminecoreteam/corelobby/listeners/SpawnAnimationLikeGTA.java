@@ -6,6 +6,8 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
@@ -26,50 +28,58 @@ public class SpawnAnimationLikeGTA
         new BukkitRunnable() {
 
             public void run() {
+                p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 99999, 1));
                 Location loc2 = new Location(Bukkit.getWorld(core.getConfig().getString("SpawnAnimation.loc2.name")),
                         (float)core.getConfig().getLong("SpawnAnimation.loc2.x"), (float)core.getConfig().getLong("SpawnAnimation.loc2.y"),
                         (float)core.getConfig().getLong("SpawnAnimation.loc2.z"),
                         (float)core.getConfig().getLong("SpawnAnimation.loc2.t"), (float)core.getConfig().getLong("SpawnAnimation.loc2.b"));
 
-                int speed = 8;
+                int speed = 25;
                 Vector dir = loc2.toVector().subtract(p.getLocation().toVector()).normalize();
                 p.setVelocity(dir.multiply(speed));
+                clearEffects(p);
             }
         }.runTaskLater((Plugin) core, 50L);
 
         new BukkitRunnable() {
 
             public void run() {
+                p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 99999, 1));
                 Location loc3 = new Location(Bukkit.getWorld(core.getConfig().getString("SpawnAnimation.loc3.name")),
                         (float)core.getConfig().getLong("SpawnAnimation.loc3.x"), (float)core.getConfig().getLong("SpawnAnimation.loc3.y"),
                         (float)core.getConfig().getLong("SpawnAnimation.loc3.z"),
                         (float)core.getConfig().getLong("SpawnAnimation.loc3.t"), (float)core.getConfig().getLong("SpawnAnimation.loc3.b"));
 
                 p.teleport(loc3);
+                clearEffects(p);
             }
         }.runTaskLater((Plugin) core, 120L);
 
         new BukkitRunnable() {
 
             public void run() {
+                p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 99999, 1));
                 Location loc4 = new Location(Bukkit.getWorld(core.getConfig().getString("SpawnAnimation.loc4.name")),
                         (float)core.getConfig().getLong("SpawnAnimation.loc4.x"), (float)core.getConfig().getLong("SpawnAnimation.loc4.y"),
                         (float)core.getConfig().getLong("SpawnAnimation.loc4.z"),
                         (float)core.getConfig().getLong("SpawnAnimation.loc4.t"), (float)core.getConfig().getLong("SpawnAnimation.loc4.b"));
 
                 p.teleport(loc4);
+                clearEffects(p);
             }
         }.runTaskLater((Plugin) core, 150L);
 
         new BukkitRunnable() {
 
             public void run() {
+                p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 99999, 1));
                 Location loc5 = new Location(Bukkit.getWorld(core.getConfig().getString("SpawnAnimation.loc5.name")),
                         (float)core.getConfig().getLong("SpawnAnimation.loc5.x"), (float)core.getConfig().getLong("SpawnAnimation.loc5.y"),
                         (float)core.getConfig().getLong("SpawnAnimation.loc5.z"),
                         (float)core.getConfig().getLong("SpawnAnimation.loc5.t"), (float)core.getConfig().getLong("SpawnAnimation.loc5.b"));
 
                 p.teleport(loc5);
+                clearEffects(p);
                 PlayerJoinListener.loadPlayerInfo(p);
                 if (PlayerJoinListener.getCanDoubleJump().contains(p)) {
                     p.setAllowFlight(true);
@@ -84,5 +94,11 @@ public class SpawnAnimationLikeGTA
 
 
 
+    }
+
+    public static void clearEffects(Player player) {
+        for (PotionEffect effect : player.getActivePotionEffects()) {
+            player.removePotionEffect(effect.getType());
+        }
     }
 }
