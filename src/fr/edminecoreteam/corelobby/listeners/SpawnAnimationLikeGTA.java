@@ -35,9 +35,10 @@ public class SpawnAnimationLikeGTA
                         (float)core.getConfig().getLong("SpawnAnimation.loc2.z"),
                         (float)core.getConfig().getLong("SpawnAnimation.loc2.t"), (float)core.getConfig().getLong("SpawnAnimation.loc2.b"));
                 int speed = 11;
+                int endspeed = 4;
                 Vector dir = loc2.toVector().subtract(p.getLocation().toVector()).normalize();
                 p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0f, 0.5f);
-                p.setVelocity(dir.multiply(speed));
+                p.setVelocity(dir.multiply(endspeed));
                 new BukkitRunnable() {
 
                     public void run() {
@@ -49,6 +50,13 @@ public class SpawnAnimationLikeGTA
 
                     public void run() {
                         p.setVelocity(dir.multiply(speed));
+                    }
+                }.runTaskLater((Plugin) core, 15);
+
+                new BukkitRunnable() {
+
+                    public void run() {
+                        p.setVelocity(dir.multiply(endspeed));
                     }
                 }.runTaskLater((Plugin) core, 15);
             }
