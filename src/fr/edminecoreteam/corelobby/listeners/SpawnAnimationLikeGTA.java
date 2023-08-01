@@ -2,6 +2,7 @@ package fr.edminecoreteam.corelobby.listeners;
 
 import fr.edminecoreteam.corelobby.Core;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -14,6 +15,8 @@ public class SpawnAnimationLikeGTA
 
     public static void run(Player p)
     {
+        p.setGameMode(GameMode.SPECTATOR);
+
         Location loc1 = new Location(Bukkit.getWorld(core.getConfig().getString("SpawnAnimation.loc1.name")),
                 (float)core.getConfig().getLong("SpawnAnimation.loc1.x"), (float)core.getConfig().getLong("SpawnAnimation.loc1.y"),
                 (float)core.getConfig().getLong("SpawnAnimation.loc1.z"),
@@ -44,7 +47,7 @@ public class SpawnAnimationLikeGTA
 
                 p.teleport(loc3);
             }
-        }.runTaskLater((Plugin) core, 40L);
+        }.runTaskLater((Plugin) core, 60L);
 
         new BukkitRunnable() {
 
@@ -56,7 +59,7 @@ public class SpawnAnimationLikeGTA
 
                 p.teleport(loc4);
             }
-        }.runTaskLater((Plugin) core, 70L);
+        }.runTaskLater((Plugin) core, 90L);
 
         new BukkitRunnable() {
 
@@ -68,8 +71,16 @@ public class SpawnAnimationLikeGTA
 
                 p.teleport(loc5);
                 PlayerJoinListener.loadPlayerInfo(p);
+                if (PlayerJoinListener.getCanDoubleJump().contains(p)) {
+                    p.setAllowFlight(true);
+                    p.setFlying(false);
+                }
+                else {
+                    p.setAllowFlight(false);
+                    p.setFlying(false);
+                }
             }
-        }.runTaskLater((Plugin) core, 100L);
+        }.runTaskLater((Plugin) core, 120L);
 
 
 

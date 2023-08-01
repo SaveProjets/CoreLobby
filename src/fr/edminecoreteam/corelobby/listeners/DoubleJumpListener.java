@@ -13,18 +13,6 @@ import org.bukkit.event.player.PlayerToggleFlightEvent;
 
 public class DoubleJumpListener implements Listener
 {
-    @EventHandler
-    public void setFly(PlayerJoinEvent e) {
-        Player p = e.getPlayer();
-        if (PlayerJoinListener.getCanDoubleJump().contains(p)) {
-            e.getPlayer().setAllowFlight(true);
-            e.getPlayer().setFlying(false);
-        }
-        else {
-            e.getPlayer().setAllowFlight(false);
-            e.getPlayer().setFlying(false);
-        }
-    }
 
     @EventHandler
     public void setVelocity(PlayerToggleFlightEvent e) {
