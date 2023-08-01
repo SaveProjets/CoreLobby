@@ -40,11 +40,17 @@ public class SpawnAnimationLikeGTA
                 new BukkitRunnable() {
 
                     public void run() {
+                        p.setVelocity(dir.multiply(speed));
+                    }
+                }.runTaskLater((Plugin) core, 5);
+                new BukkitRunnable() {
+
+                    public void run() {
                         clearEffects(p);
                     }
-                }.runTaskLater((Plugin) core, 20);
+                }.runTaskLater((Plugin) core, 10);
             }
-        }.runTaskLater((Plugin) core, 50L);
+        }.runTaskLater((Plugin) core, 30L);
 
         new BukkitRunnable() {
 
@@ -61,7 +67,7 @@ public class SpawnAnimationLikeGTA
                     public void run() {
                         clearEffects(p);
                     }
-                }.runTaskLater((Plugin) core, 20);
+                }.runTaskLater((Plugin) core, 7);
             }
         }.runTaskLater((Plugin) core, 120L);
 
@@ -80,7 +86,7 @@ public class SpawnAnimationLikeGTA
                     public void run() {
                         clearEffects(p);
                     }
-                }.runTaskLater((Plugin) core, 20);
+                }.runTaskLater((Plugin) core, 7);
             }
         }.runTaskLater((Plugin) core, 150L);
 
@@ -99,7 +105,7 @@ public class SpawnAnimationLikeGTA
                     public void run() {
                         clearEffects(p);
                     }
-                }.runTaskLater((Plugin) core, 20);
+                }.runTaskLater((Plugin) core, 7);
                 PlayerJoinListener.loadPlayerInfo(p);
                 if (PlayerJoinListener.getCanDoubleJump().contains(p)) {
                     p.setAllowFlight(true);
