@@ -34,7 +34,7 @@ public class SpawnAnimationLikeGTA
                         (float)core.getConfig().getLong("SpawnAnimation.loc2.x"), (float)core.getConfig().getLong("SpawnAnimation.loc2.y"),
                         (float)core.getConfig().getLong("SpawnAnimation.loc2.z"),
                         (float)core.getConfig().getLong("SpawnAnimation.loc2.t"), (float)core.getConfig().getLong("SpawnAnimation.loc2.b"));
-                int speed = 8;
+                int speed = 11;
                 Vector dir = loc2.toVector().subtract(p.getLocation().toVector()).normalize();
                 p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0f, 0.5f);
                 p.setVelocity(dir.multiply(speed));
