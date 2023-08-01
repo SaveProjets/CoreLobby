@@ -37,7 +37,7 @@ public class SpawnAnimationLikeGTA
                         (float)core.getConfig().getLong("SpawnAnimation.loc2.z"),
                         (float)core.getConfig().getLong("SpawnAnimation.loc2.t"), (float)core.getConfig().getLong("SpawnAnimation.loc2.b"));
 
-                LocationTracer tracer = new LocationTracer(p, loc1, loc2, 80);
+                LocationTracer tracer = new LocationTracer(p, loc1, loc2, 60);
                 tracer.runTaskTimer(core, 0L, 1L);
 
                 /*int speed = 11;
