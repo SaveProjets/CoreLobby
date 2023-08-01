@@ -1,6 +1,7 @@
 package fr.edminecoreteam.corelobby.listeners;
 
 import fr.edminecoreteam.corelobby.Core;
+import fr.edminecoreteam.corelobby.utils.LocationTracer;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -34,7 +35,11 @@ public class SpawnAnimationLikeGTA
                         (float)core.getConfig().getLong("SpawnAnimation.loc2.x"), (float)core.getConfig().getLong("SpawnAnimation.loc2.y"),
                         (float)core.getConfig().getLong("SpawnAnimation.loc2.z"),
                         (float)core.getConfig().getLong("SpawnAnimation.loc2.t"), (float)core.getConfig().getLong("SpawnAnimation.loc2.b"));
-                int speed = 11;
+
+                LocationTracer tracer = new LocationTracer(p, loc1, loc2, 150);
+                tracer.runTaskTimer(core, 0L, 1L);
+
+                /*int speed = 11;
                 int endspeed = 4;
                 Vector dir = loc2.toVector().subtract(p.getLocation().toVector()).normalize();
                 p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0f, 0.5f);
@@ -58,7 +63,7 @@ public class SpawnAnimationLikeGTA
                     public void run() {
                         p.setVelocity(dir.multiply(endspeed));
                     }
-                }.runTaskLater((Plugin) core, 15);
+                }.runTaskLater((Plugin) core, 15);*/
             }
         }.runTaskLater((Plugin) core, 30L);
 
