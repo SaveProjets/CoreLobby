@@ -31,11 +31,11 @@ public class SpawnAnimationLikeGTA
                         (float)core.getConfig().getLong("SpawnAnimation.loc2.z"),
                         (float)core.getConfig().getLong("SpawnAnimation.loc2.t"), (float)core.getConfig().getLong("SpawnAnimation.loc2.b"));
 
-                int speed = 3;
+                int speed = 8;
                 Vector dir = loc2.toVector().subtract(p.getLocation().toVector()).normalize();
                 p.setVelocity(dir.multiply(speed));
             }
-        }.runTaskLater((Plugin) core, 0L);
+        }.runTaskLater((Plugin) core, 50L);
 
         new BukkitRunnable() {
 
@@ -47,7 +47,7 @@ public class SpawnAnimationLikeGTA
 
                 p.teleport(loc3);
             }
-        }.runTaskLater((Plugin) core, 60L);
+        }.runTaskLater((Plugin) core, 120L);
 
         new BukkitRunnable() {
 
@@ -59,7 +59,7 @@ public class SpawnAnimationLikeGTA
 
                 p.teleport(loc4);
             }
-        }.runTaskLater((Plugin) core, 90L);
+        }.runTaskLater((Plugin) core, 150L);
 
         new BukkitRunnable() {
 
@@ -80,7 +80,7 @@ public class SpawnAnimationLikeGTA
                     p.setFlying(false);
                 }
             }
-        }.runTaskLater((Plugin) core, 120L);
+        }.runTaskLater((Plugin) core, 180L);
 
 
 
