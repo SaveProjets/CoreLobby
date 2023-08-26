@@ -203,7 +203,7 @@ public class MainGui implements Listener
                         ArrayList<String> loreshortGame = new ArrayList<String>();
                         loreshortGame.add("");
                         loreshortGame.add(" §aDescription:");
-                        loreshortGame.add(" §f▶ §7Vous voulez pas vous");
+                        loreshortGame.add(" §f▶ §7Vous ne voulez pas vous");
                         loreshortGame.add(" §f  §7prendre la tête? ");
                         loreshortGame.add(" §f▶ §7Jouez rapidement sur les");
                         loreshortGame.add(" §f  §7mini-jeux de votre choix.");
@@ -224,7 +224,7 @@ public class MainGui implements Listener
                         ArrayList<String> loreshortGame = new ArrayList<String>();
                         loreshortGame.add("");
                         loreshortGame.add(" §aDescription:");
-                        loreshortGame.add(" §f▶ §7Vous voulez pas vous");
+                        loreshortGame.add(" §f▶ §7Vous ne voulez pas vous");
                         loreshortGame.add(" §f  §7prendre la tête? ");
                         loreshortGame.add(" §f▶ §7Jouez rapidement sur les");
                         loreshortGame.add(" §f  §7mini-jeux de votre choix.");
@@ -245,7 +245,7 @@ public class MainGui implements Listener
                         ArrayList<String> loreshortGame = new ArrayList<String>();
                         loreshortGame.add("");
                         loreshortGame.add(" §aDescription:");
-                        loreshortGame.add(" §f▶ §7Vous voulez pas vous");
+                        loreshortGame.add(" §f▶ §7Vous ne voulez pas vous");
                         loreshortGame.add(" §f  §7prendre la tête? ");
                         loreshortGame.add(" §f▶ §7Jouez rapidement sur les");
                         loreshortGame.add(" §f  §7mini-jeux de votre choix.");
@@ -266,7 +266,7 @@ public class MainGui implements Listener
                         ArrayList<String> loreshortGame = new ArrayList<String>();
                         loreshortGame.add("");
                         loreshortGame.add(" §aDescription:");
-                        loreshortGame.add(" §f▶ §7Vous voulez pas vous");
+                        loreshortGame.add(" §f▶ §7Vous ne voulez pas vous");
                         loreshortGame.add(" §f  §7prendre la tête? ");
                         loreshortGame.add(" §f▶ §7Jouez rapidement sur les");
                         loreshortGame.add(" §f  §7mini-jeux de votre choix.");
@@ -287,7 +287,7 @@ public class MainGui implements Listener
                         ArrayList<String> loreshortGame = new ArrayList<String>();
                         loreshortGame.add("");
                         loreshortGame.add(" §aDescription:");
-                        loreshortGame.add(" §f▶ §7Vous voulez pas vous");
+                        loreshortGame.add(" §f▶ §7 ne pas vous");
                         loreshortGame.add(" §f  §7prendre la tête? ");
                         loreshortGame.add(" §f▶ §7Jouez rapidement sur les");
                         loreshortGame.add(" §f  §7mini-jeux de votre choix.");

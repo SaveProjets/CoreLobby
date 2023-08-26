@@ -49,7 +49,7 @@ public class AccountInfo
     public void updateUUIDAccount() { accountData.updateUUIDAccount(); }
 
     public String isOnline() { if( accountData.isOnline() == "§cHors-Ligne" ){return accountData.isOnline();}else{return accountData.getStatusPlayer();}}
-    public int isFavoris(String p){ return accountData.isFavoris(p);}
+    public int isFavoris(String pUUID){ return accountData.isFavoris(pUUID);}
 
     public Float getFragmentsDames() { return ecoSysData.getFragmentsDames(); }
 

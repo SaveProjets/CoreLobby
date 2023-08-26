@@ -335,7 +335,7 @@ public class FriendGui implements Listener
             ItemStack friend = new ItemStack(Material.SKULL_ITEM, 1, (byte)3);
             SkullMeta friendM = (SkullMeta) friend.getItemMeta();
             friendM.setOwner(friends);
-            if(friendsInfo.isFavoris(p.getDisplayName()) == 1){
+            if(friendsInfo.isFavoris(p.getUniqueId().toString()) == 1){
                 friendM.setDisplayName("§a" + friends + favorisSymbol);
             }else{
                 friendM.setDisplayName("§a" + friends);
@@ -345,7 +345,7 @@ public class FriendGui implements Listener
             lorefriend.add(" §dInformation:");
             lorefriend.add(" §f▶ §7Statut: " + friendsInfo.isOnline());
             lorefriend.add("");
-            if(friendsInfo.isFavoris(p.getDisplayName()) == 1){
+            if(friendsInfo.isFavoris(p.getUniqueId().toString()) == 1){
                 lorefriend.add("§8➡ §fCLIC: §cSupprimer des favoris");
             }else{
                 lorefriend.add("§8➡ §fCLIC: §eAjouter au favoris");
