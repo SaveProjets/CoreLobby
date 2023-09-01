@@ -29,7 +29,17 @@ public class PlayerJoinListener implements Listener
     @EventHandler
     private void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
-        SpawnAnimationLikeGTA.run(p);
+        //SpawnAnimationLikeGTA.run(p);
+
+        loadPlayerInfo(p);
+        if (PlayerJoinListener.getCanDoubleJump().contains(p)) {
+            p.setAllowFlight(true);
+            p.setFlying(false);
+        }
+        else {
+            p.setAllowFlight(false);
+            p.setFlying(false);
+        }
     }
 
     public static void loadPlayerInfo(Player p)
