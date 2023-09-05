@@ -332,7 +332,7 @@ public class FriendDemandGui implements Listener
         p.sendMessage(" §7» §d§lInformations §d(amis):");
         p.sendMessage(" §7● §fVoulez-vous vraiment refuser §c§l" + target + "§7?");
         TextComponent confirm = new TextComponent(" §f➡ §a[Confirmer]");
-        confirm.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Cliquez ici pour refuser." + target).create()));
+        confirm.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Cliquez-ici pour refuser " + target).create()));
         confirm.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/f deny " + target));
         p.spigot().sendMessage(confirm);
         p.sendMessage("");
@@ -345,7 +345,7 @@ public class FriendDemandGui implements Listener
         p.sendMessage(" §7» §d§lInformations §d(amis):");
         p.sendMessage(" §7● §fVoulez-vous vraiment accepter §b§l" + target + "§7?");
         TextComponent confirm = new TextComponent(" §f➡ §a[Confirmer]");
-        confirm.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Cliquez ici pour accepter." + target).create()));
+        confirm.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Cliquez-ici pour accepter " + target).create()));
         confirm.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/f accept " + target));
         p.spigot().sendMessage(confirm);
         p.sendMessage("");

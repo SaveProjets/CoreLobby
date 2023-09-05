@@ -420,7 +420,7 @@ public class FriendGui implements Listener
         p.sendMessage(" §7» §d§lInformations §d(amis):");
         p.sendMessage(" §7● §fVoulez-vous vraiment supprimer §c§l" + target + "§7?");
         TextComponent confirm = new TextComponent(" §f➡ §a[Confirmer]");
-        confirm.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Cliquez ici pour supprimer " + target + ".").create()));
+        confirm.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Cliquez-ici pour supprimer " + target + ".").create()));
         confirm.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/f remove " + target));
         p.spigot().sendMessage(confirm);
         p.sendMessage("");
@@ -433,7 +433,7 @@ public class FriendGui implements Listener
         p.sendMessage(" §7» §d§lInformations §d(amis):");
         p.sendMessage(" §7● §fVoulez-vous vraiment ajouter §e§l" + target + "§f à vos favoris§7?");
         TextComponent confirm = new TextComponent(" §f➡ §a[Confirmer]");
-        confirm.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Cliquez ici pour ajouter " + target + " à vos favoris.").create()));
+        confirm.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Cliquez-ici pour ajouter " + target + " à vos favoris.").create()));
         confirm.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/f favoris add " + target));
         p.spigot().sendMessage(confirm);
         p.sendMessage("");
@@ -446,7 +446,7 @@ public class FriendGui implements Listener
         p.sendMessage(" §7» §d§lInformations §d(amis):");
         p.sendMessage(" §7● §fVoulez-vous vraiment supprimer §c§l" + target + "§f de vos favoris§7?");
         TextComponent confirm = new TextComponent(" §f➡ §a[Confirmer]");
-        confirm.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Cliquez ici pour supprimer " + target + " de vos favoris.").create()));
+        confirm.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Cliquez-ici pour supprimer " + target + " de vos favoris.").create()));
         confirm.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/f favoris remove " + target));
         p.spigot().sendMessage(confirm);
         p.sendMessage("");
@@ -459,7 +459,7 @@ public class FriendGui implements Listener
         p.sendMessage(" §7» §d§lInformations §d(amis):");
         p.sendMessage(" §7● §fConfirmez-vous que vous voulez ajouter §b§l" + target + "§7?");
         TextComponent confirm = new TextComponent(" §f➡ §a[confirmer]");
-        confirm.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Cliquez ici pour ajouter " + target + ".").create()));
+        confirm.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Cliquez-ici pour ajouter " + target + ".").create()));
         confirm.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/f add " + target));
         p.spigot().sendMessage(confirm);
         p.sendMessage("");
