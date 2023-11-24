@@ -1,5 +1,7 @@
 package fr.edminecoreteam.corelobby.mainmenu;
 
+import fr.edminecoreteam.corelobby.mainmenu.othergames.OtherGamesGui;
+import fr.edminecoreteam.corelobby.mainmenu.othergames.PracticeGui;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -33,7 +35,7 @@ public class MainInteractions implements Listener
         if (inv.getName().equalsIgnoreCase("§8Menu Principal"))
         {
             e.setCancelled(true);
-            if (it.getType() == Material.SKULL_ITEM || it.getType() == Material.DIODE || it.getType() == Material.SNOW_BALL || it.getType() == Material.WATER_BUCKET)
+            if (it.getType() == Material.SKULL_ITEM || it.getType() == Material.DIODE || it.getType() == Material.SNOW_BALL || it.getType() == Material.WATER_BUCKET || it.getType() == Material.DIAMOND_SWORD || it.getType() == Material.DIAMOND_PICKAXE)
             {
                 if(it.getItemMeta().getDisplayName() == "§b§lMenu Principal")
                 {
@@ -50,6 +52,11 @@ public class MainInteractions implements Listener
                     p.playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
                     LongGamesGui.gui(p);
                 }
+                if(it.getItemMeta().getDisplayName() == "§7Jeux: §6§lDivers")
+                {
+                    p.playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
+                    OtherGamesGui.gui(p);
+                }
                 if(it.getItemMeta().getDisplayName() == "§e§lPaintBall")
                 {
                     p.playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
@@ -64,6 +71,11 @@ public class MainInteractions implements Listener
                 {
                     p.playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
                     DeadSurvivorGui.gui(p);
+                }
+                if(it.getItemMeta().getDisplayName() == "§f§lPractice")
+                {
+                    p.playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
+                    PracticeGui.gui(p);
                 }
                 if(it.getItemMeta().getDisplayName() == "§aRetour vers le hub")
                 {
@@ -137,6 +149,24 @@ public class MainInteractions implements Listener
                 {
                     p.playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
                     FoundGame.startFound(p, "DeadSurvivor");
+                    p.closeInventory();
+                }
+            }
+        }
+        if (inv.getName().equalsIgnoreCase("§8Menu Principal (Practice)"))
+        {
+            e.setCancelled(true);
+            if (it.getType() == Material.SKULL_ITEM || it.getType() == Material.DIODE || it.getType() == Material.DIAMOND_AXE || it.getType() == Material.IRON_CHESTPLATE)
+            {
+                if(it.getItemMeta().getDisplayName() == "§b§lMenu Principal")
+                {
+                    p.playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
+                    MainGui.gui(p);
+                }
+                if(it.getItemMeta().getDisplayName() == "§e§lJouer")
+                {
+                    p.playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
+                    FoundGame.startFound(p, "Practice");
                     p.closeInventory();
                 }
             }

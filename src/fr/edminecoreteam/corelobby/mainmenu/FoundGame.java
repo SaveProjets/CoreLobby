@@ -47,6 +47,7 @@ public class FoundGame implements Listener
                     ++f;
                     if (f == 5) {
                         foundGame(p, gameType);
+                        foundGameStatic(p, gameType);
                         f = 0;
                     }
                 }
@@ -107,6 +108,29 @@ public class FoundGame implements Listener
                     out.writeUTF(srv);
                     player.sendPluginMessage((Plugin)core, "BungeeCord", out.toByteArray());
                 }
+            }
+        }
+    }
+
+    public static void foundGameStatic(Player player, String gameType)
+    {
+        ChangeHubInfo srvInfo = new ChangeHubInfo(gameType);
+        List<String> srvList = srvInfo.getServer();
+
+        if (srvList.size() != 0)
+        {
+            if (core.getFoundGame().contains(player.getName()))
+            {
+                String waitingRoom = calculateRoom(gameType, 2);
+                player.sendMessage("§e§lFile d'attente §8» §fConnexion en cours vers " + waitingRoom + " §f...");
+                Core.getInstance().title.sendActionBar(player, "§aConnexion en cours...");
+                core.getFoundGame().remove(player.getName());
+                setItem(player, 2);
+                String srv = srvList.get(0);
+                ByteArrayDataOutput out = ByteStreams.newDataOutput();
+                out.writeUTF("Connect");
+                out.writeUTF(srv);
+                player.sendPluginMessage((Plugin)core, "BungeeCord", out.toByteArray());
             }
         }
     }
@@ -291,6 +315,26 @@ public class FoundGame implements Listener
                         ChangeHubInfo srvStartInfo = new ChangeHubInfo(srvAttente.get(0));
                         return "§6ds_" + srvStartInfo.getServerID();
                     }
+                }
+            }
+        }
+        if (group.equalsIgnoreCase("Practice"))
+        {
+            if (found == 1)
+            {
+                return "§6Practice";
+            }
+            if (found == 2)
+            {
+                ChangeHubInfo srvInfo = new ChangeHubInfo(group);
+                List<String> srvList = srvInfo.getServer();
+
+
+
+                if (srvList.size() != 0)
+                {
+                    ChangeHubInfo srvAttenteInfo = new ChangeHubInfo(srvList.get(0));
+                    return "§6pt_" + srvAttenteInfo.getServerID();
                 }
             }
         }
