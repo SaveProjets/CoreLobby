@@ -46,7 +46,6 @@ public class PlayerJoinListener implements Listener
     {
         RankInfo rankInfo  = new RankInfo(p);
         SettingInfo settingInfo = new SettingInfo(p);
-        BarListener barListener = new BarListener(p);
         LinkData linkData = new LinkData(p.getUniqueId().toString());
         p.setGameMode(GameMode.ADVENTURE);
         p.playSound(p.getLocation(), Sound.FIREWORK_LAUNCH, 1.0f, 1.0f);
@@ -64,8 +63,8 @@ public class PlayerJoinListener implements Listener
             p.setPlayerTime(6000, true);
         }
         p.sendTitle("§e§kII§r §6§lEDMINE§r §f§lNETWORK§r §e§kII§r", "§7Bon retour à la maison.");
-        barListener.launch();
         linkData.createLink();
         Core.getInstance().getScoreboardManager().onLogin(p);
+        core.getBossBar().addPlayer(p);
     }
 }

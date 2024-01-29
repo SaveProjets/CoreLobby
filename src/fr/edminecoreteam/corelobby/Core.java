@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
+import fr.edminecoreteam.corelobby.dragonbar.BarListener;
+import fr.edminecoreteam.corelobby.dragonbar.BossBar;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.entity.Player;
@@ -60,6 +62,7 @@ public class Core extends JavaPlugin implements PluginMessageListener {
 
     private static Core instance;
     public TitleBuilder title;
+    private BossBar bossBar;
     private ScoreboardManager scoreboardManager;
     private ScheduledExecutorService executorMonoThread;
     private ScheduledExecutorService scheduledExecutorService;
@@ -109,13 +112,13 @@ public class Core extends JavaPlugin implements PluginMessageListener {
     /*
      * Méthode de connexion au serveur SQL.
      *
-     * "jdbc:mysql://", "45.140.165.235", "22728-database", "22728-database", "S5bV5su4p9"
+     * "jdbc:mysql://"
      */
     public void MySQLConnect()
     {
         instance = this;
 
-        (this.database = new MySQL(instance, "jdbc:mysql://", "45.140.165.235", "22728-database", "22728-database", "S5bV5su4p9")).connexion();
+        (this.database = new MySQL(instance, "jdbc:mysql://", this.getConfig().getString("mysql.host"), this.getConfig().getString("mysql.database"), this.getConfig().getString("mysql.user"), this.getConfig().getString("mysql.password"))).connexion();
 
         database.creatingTableSetting();
         database.creatingTableLink();
@@ -135,8 +138,8 @@ public class Core extends JavaPlugin implements PluginMessageListener {
     private void loadListeners()
     {
         Core.instance = this;
+        this.bossBar = new BossBar(this, "Lobby");
         PluginManager pm = Bukkit.getPluginManager();
-        updateDragonBar();
         pm.registerEvents((Listener)new MagicSheep(), (Plugin)this);
         pm.registerEvents((Listener)new MainInteractions(), (Plugin)this);
         pm.registerEvents((Listener)new ProfileItem(), (Plugin)this);
@@ -169,6 +172,9 @@ public class Core extends JavaPlugin implements PluginMessageListener {
         pm.registerEvents((Listener)new LeaveScoreboardEvent(), (Plugin)this);
 
         pm.registerEvents((Listener)new PlayerJoinPacketHolograms(), (Plugin)this);
+
+        BarListener barListener = new BarListener();
+        barListener.launch();
     }
 
     private void loadCommands()
@@ -218,32 +224,10 @@ public class Core extends JavaPlugin implements PluginMessageListener {
         this.scoreboardManager = new ScoreboardManager();
     }
 
-    private void updateDragonBar()
-    {
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                while(true) {
-                    for(String s : BarUtil.getPlayers()) {
-                        Player o = Bukkit.getPlayer(s);
-                        if(o != null) BarUtil.teleportBar(o);
-                    }
-
-                    try {
-                        Thread.sleep(1000); // 1000 = 1 sec
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-        }).start();
-    }
-
     /*
      * Méthode de retournement de l'instance.
      */
+    public BossBar getBossBar() { return this.bossBar; }
     public ScoreboardManager getScoreboardManager() { return scoreboardManager; }
     public ScheduledExecutorService getExecutorMonoThread() { return executorMonoThread; }
     public ScheduledExecutorService getScheduledExecutorService() { return scheduledExecutorService; }

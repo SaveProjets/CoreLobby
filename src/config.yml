@@ -4,6 +4,13 @@
 # Version: 0.1
 #
 
+# MySQL.
+mysql:
+  host: 'ip'
+  database: 'database'
+  user: 'user'
+  password: 'pass'
+
 SpawnAnimation:
   loc1:
     name: 'hub'

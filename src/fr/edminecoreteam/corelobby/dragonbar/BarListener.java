@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -13,55 +11,36 @@ import fr.edminecoreteam.corelobby.Core;
 
 public class BarListener
 {
-    private static Core core = Core.getInstance();
-
-    private Player p;
-    private Random random = new Random();
-
-    public BarListener(Player p) {
-        this.p = p;
-    }
+    private static final Core core = Core.getInstance();
+    private final Random random = new Random();
 
     public void launch()
     {
-        BarUtil.sendBar(p, "", 0);
-        List<String> phrases = new ArrayList<String>();
 
-        for (String s : core.getConfig().getConfigurationSection("dragonbar").getKeys(false))
-        {
-            phrases.add(s);
-        }
+        List<String> phrases = new ArrayList<String>(core.getConfig().getConfigurationSection("dragonbar").getKeys(false));
 
         String configPhrase = selectRandomString(phrases);
         String finalPhrase = core.getConfig().getString("dragonbar." + configPhrase);
-        BarUtil.updateText(p, encode(finalPhrase));
+        core.getBossBar().setTitle(encode(finalPhrase));
         new BukkitRunnable() {
             int t = 0;
             boolean dragonUpdate = false;
             public void run() {
 
-                if (Bukkit.getPlayer(p.getName()) == null) { cancel(); }
-
-                if (dragonUpdate == false)
+                if (!dragonUpdate)
                 {
                     if (t < 100)
                     {
                         ++t;
-                        BarUtil.updateHealth(p, t);
+                        core.getBossBar().setProgress(t);
                     }
                     else if (t == 100)
                     {
-                        BarUtil.updateHealth(p, t);
-                        List<String> phrases = new ArrayList<String>();
-
-                        for (String s : core.getConfig().getConfigurationSection("dragonbar").getKeys(false))
-                        {
-                            phrases.add(s);
-                        }
+                        core.getBossBar().setProgress(t);
 
                         String configPhrase = selectRandomString(phrases);
                         String finalPhrase = core.getConfig().getString("dragonbar." + configPhrase);
-                        BarUtil.updateText(p, encode(finalPhrase));
+                        core.getBossBar().setTitle(encode(finalPhrase));
                         dragonUpdate = true;
                     }
                 }
@@ -70,21 +49,15 @@ public class BarListener
                     if (t > 0)
                     {
                         --t;
-                        BarUtil.updateHealth(p, t);
+                        core.getBossBar().setProgress(t);
                     }
                     else if (t == 0)
                     {
-                        BarUtil.updateHealth(p, t);
-                        List<String> phrases = new ArrayList<String>();
-
-                        for (String s : core.getConfig().getConfigurationSection("dragonbar").getKeys(false))
-                        {
-                            phrases.add(s);
-                        }
+                        core.getBossBar().setProgress(1);
 
                         String configPhrase = selectRandomString(phrases);
                         String finalPhrase = core.getConfig().getString("dragonbar." + configPhrase);
-                        BarUtil.updateText(p, encode(finalPhrase));
+                        core.getBossBar().setTitle(encode(finalPhrase));
                         dragonUpdate = false;
                     }
                 }
@@ -104,7 +77,7 @@ public class BarListener
     }
 
     private String encode(String s) {
-        String encoded = s
+        return s
                 .replace("&", "§")
                 .replace("{e1}", "é")
                 .replace("{e2}", "è")
@@ -135,10 +108,7 @@ public class BarListener
                 .replace("{alert}", "⚠")
                 .replace("{separator}", "»")
                 .replace("{inverseseparator}", "«")
-                .replace("{player_name}", p.getName())
                 .replace("{euro}", "€");
-
-        return encoded;
     }
 
 }
