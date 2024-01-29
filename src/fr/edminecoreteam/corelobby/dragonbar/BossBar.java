@@ -49,12 +49,30 @@ public class BossBar extends BukkitRunnable
     }
 
     public void setProgress(double progress) {
-        for (Map.Entry<Player, EntityWither> entry : withers.entrySet()) {
-            EntityWither wither = entry.getValue();
-            wither.setHealth((float) (progress * wither.getMaxHealth()));
-            PacketPlayOutEntityMetadata packet = new PacketPlayOutEntityMetadata(wither.getId(), wither.getDataWatcher(), true);
-            ((CraftPlayer) entry.getKey()).getHandle().playerConnection.sendPacket(packet);
+        for (Map.Entry<Player, EntityWither> en : withers.entrySet()) {
+            /*EntityWither wither = en.getValue();
+            DataWatcher dataWatcher = wither.getDataWatcher();
+            dataWatcher.watch(6, (float) progress * wither.getMaxHealth());
+            //wither.setHealth((float) (progress * wither.getMaxHealth()));
+            PacketPlayOutEntityMetadata packet = new PacketPlayOutEntityMetadata(wither.getId(), dataWatcher, true);
+            ((CraftPlayer)en.getKey()).getHandle().playerConnection.sendPacket(packet);*/
+
+            EntityWither wither = en.getValue();
+
+            // Construire le paquet de mise à jour de la barre de boss
+            PacketPlayOutEntityMetadata packet = constructBossBarPacket(wither, (float) progress);
+
+            // Envoyer le paquet au joueur
+            ((CraftPlayer) en.getKey()).getHandle().playerConnection.sendPacket(packet);
         }
+    }
+
+    private PacketPlayOutEntityMetadata constructBossBarPacket(EntityWither wither, float progress) {
+        DataWatcher dataWatcher = new DataWatcher(null);
+        dataWatcher.a(6, progress * 300.0F); // Index 6 pour la santé
+
+        // Créer un nouveau paquet de métadonnées d'entité pour mettre à jour la barre de boss
+        return new PacketPlayOutEntityMetadata(wither.getId(), dataWatcher, true);
     }
 
     public Location getWitherLocation(Location l) {
