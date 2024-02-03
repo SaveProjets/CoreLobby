@@ -6,8 +6,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import fr.edminecoreteam.corelobby.dragonbar.BarUtil;
-
 public class PlayerQuitListener implements Listener
 {
     private final static Core core = Core.getInstance();
@@ -17,6 +15,5 @@ public class PlayerQuitListener implements Listener
         Player p = e.getPlayer();
 
         if (PlayerJoinListener.getCanDoubleJump().contains(p)) { PlayerJoinListener.getCanDoubleJump().remove(p); }
-        core.getBossBar().removePlayer(p);
     }
 }

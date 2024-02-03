@@ -65,6 +65,5 @@ public class PlayerJoinListener implements Listener
         p.sendTitle("§e§kII§r §6§lEDMINE§r §f§lNETWORK§r §e§kII§r", "§7Bon retour à la maison.");
         linkData.createLink();
         Core.getInstance().getScoreboardManager().onLogin(p);
-        core.getBossBar().addPlayer(p);
     }
 }

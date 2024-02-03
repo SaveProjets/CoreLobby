@@ -6,7 +6,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 import fr.edminecoreteam.corelobby.dragonbar.BarListener;
-import fr.edminecoreteam.corelobby.dragonbar.BossBar;
+import fr.edminecoreteam.corelobby.utils.minecraft.edbossbar.BossBar;
+import fr.edminecoreteam.corelobby.utils.minecraft.edbossbar.BossBarEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.entity.Player;
@@ -21,7 +22,6 @@ import com.google.common.io.ByteStreams;
 
 import fr.edminecoreteam.corelobby.changehub.ChangeHubGui;
 import fr.edminecoreteam.corelobby.changehub.ChangeHubItem;
-import fr.edminecoreteam.corelobby.dragonbar.BarUtil;
 import fr.edminecoreteam.corelobby.edorm.MySQL;
 import fr.edminecoreteam.corelobby.edorm.SQLState;
 import fr.edminecoreteam.corelobby.holograms.PlayerJoinPacketHolograms;
@@ -138,8 +138,11 @@ public class Core extends JavaPlugin implements PluginMessageListener {
     private void loadListeners()
     {
         Core.instance = this;
-        this.bossBar = new BossBar(this, "Lobby");
         PluginManager pm = Bukkit.getPluginManager();
+
+        this.bossBar = new BossBar("Edmine Network", 300);
+        pm.registerEvents((Listener)new BossBarEvent(), (Plugin)this);
+        
         pm.registerEvents((Listener)new MagicSheep(), (Plugin)this);
         pm.registerEvents((Listener)new MainInteractions(), (Plugin)this);
         pm.registerEvents((Listener)new ProfileItem(), (Plugin)this);

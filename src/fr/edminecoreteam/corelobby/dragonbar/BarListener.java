@@ -32,11 +32,11 @@ public class BarListener
                     if (t < 100)
                     {
                         ++t;
-                        core.getBossBar().setProgress(t);
+                        core.getBossBar().setHealth(t, 100);
                     }
                     else if (t == 100)
                     {
-                        core.getBossBar().setProgress(t);
+                        core.getBossBar().setHealth(t, 100);
 
                         String configPhrase = selectRandomString(phrases);
                         String finalPhrase = core.getConfig().getString("dragonbar." + configPhrase);
@@ -49,11 +49,11 @@ public class BarListener
                     if (t > 0)
                     {
                         --t;
-                        core.getBossBar().setProgress(t);
+                        core.getBossBar().setHealth(t, 100);
                     }
                     else if (t == 0)
                     {
-                        core.getBossBar().setProgress(1);
+                        core.getBossBar().setHealth(1, 100);
 
                         String configPhrase = selectRandomString(phrases);
                         String finalPhrase = core.getConfig().getString("dragonbar." + configPhrase);
