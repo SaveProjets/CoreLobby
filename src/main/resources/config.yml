@@ -1,0 +1,109 @@
+#
+# Fichier configuration de lobby par Edmine Network.
+# Dev: N12cf
+# Version: 0.1
+#
+
+# MySQL.
+mysql:
+  host: 'ip'
+  database: 'database'
+  user: 'user'
+  password: 'pass'
+
+SpawnAnimation:
+  loc1:
+    name: 'hub'
+    x: 0.5
+    y: 225.0
+    z: -102.0
+    t: 180.0
+    b: 90.0
+  loc2:
+    name: 'hub'
+    x: 0.5
+    y: 225.0
+    z: 0.5
+    t: 180.0
+    b: 90.0
+  loc3:
+    name: 'hub'
+    x: 0.5
+    y: 175.0
+    z: 0.5
+    t: 180.0
+    b: 90.0
+  loc4:
+    name: 'hub'
+    x: 0.5
+    y: 125.0
+    z: 0.5
+    t: 180.0
+    b: 90.0
+  loc5:
+    name: 'hub'
+    x: 0.5
+    y: 93.0
+    z: 0.5
+    t: -180.0
+    b: -4.0
+
+Spawn:
+  name: 'none'
+  x: 0
+  y: 0
+  z: 0
+  t: 0
+  b: 0
+
+VipZone:
+  name: 'none'
+  x: 0
+  y: 0
+  z: 0
+  t: 0
+  b: 0
+
+
+#
+# Pour utiliser les hologrames sur edmine c'est simple,
+# définissez un nom un world une loc et les lignes bien numérotés dans l'ordres.
+#
+# Liste des variables (accens, informations, emojies):
+# Accens (alphabet):
+# - {e1} = é, {e2} = è, {e3} = ê, {i1} = î, {a1} = à, {a2} = â, {o1} ô.
+#
+# Informations:
+# - {spigot_online} = Liste des joueurs, {server_id} = ID généré par le serveur,
+# {player_name} = Pseudo du joueur, {fragments_dames} = Economie, {eclats_divins} = Economie,
+# {argent} = Economie.
+#
+# Emojies:
+# - {love} = ❤, {valide} = ✔, {unvalid} = ✘, {flocon} = ✵, {eclats} = ❁, {money} = ✪,
+# {star} = ✯, {right} = ➡, {left} = ⬅, {up} = ⬆, {down} = ⬇, {right_select} = ➟,
+# {alert} = ⚠, {separator} = », {euro} = €.
+#
+
+dragonbar:
+  phrase1: '&6{alert} &6&lVersion Aplha &6{alert}'
+  phrase2: '&7Site Web &f{right} &bhttps://edmine.net'
+  phrase3: '&7Boutique &f{right} &estore.edmine.net'
+  phrase4: '&7Discord &f{right} &ddiscord.edmine.net'
+
+holograms:
+  welcome:
+    world: 'hub'
+    loc:
+      x: -11.5
+      y: 92.0
+      z: -8.5
+    lines:
+      1: '&6&lEdmine &f&lNetwork'
+      2: '&1'
+      3: '&7Lobby: &c#'
+      4: '&7Connecté(s): &a{spigot_online}'
+      5: '&2'
+      6: '&7Site Web: &dwww.edmine.net'
+      7: '&7Twitter: &b@EdmineNetwork'
+      8: '&7Discord: &9discord.edmine.net'
+      9: '&7Boutique: &estore.edmine.net'
