@@ -1,0 +1,1 @@
+package fr.edminecoreteam.corelobby.utils.minecraft;
