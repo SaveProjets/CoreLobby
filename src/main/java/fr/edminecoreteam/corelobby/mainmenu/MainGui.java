@@ -54,12 +54,6 @@ public class MainGui implements Listener
                     inv.setItem(0, deco); inv.setItem(8, deco); inv.setItem(9, deco); inv.setItem(17, deco);
                     inv.setItem(45, deco); inv.setItem(53, deco); inv.setItem(36, deco); inv.setItem(44, deco);
 
-                    /*ItemStack main = getSkull("http://textures.minecraft.net/texture/47ad48f18cad99e06dfa4e59f7e486864f974daa985f6d6e657032b23eafca7");
-                    ItemMeta mainM = main.getItemMeta();
-                    mainM.setDisplayName("§b§lMenu Principal");
-
-                    mainM.setLore(loremain);
-                    main.setItemMeta(mainM);*/
                     ArrayList<String> loremain = new ArrayList<String>();
                     loremain.add("");
                     loremain.add(" §aDescription:");
