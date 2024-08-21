@@ -23,7 +23,6 @@ import fr.edminecoreteam.corelobby.utils.SkullNBT;
 public class ShortGamesGui implements Listener
 {
     private static Core api = Core.getInstance();
-    private static ItemStack getSkull(String url) { return SkullNBT.getSkull(url); }
 
     public static void gui(Player p) {
 
