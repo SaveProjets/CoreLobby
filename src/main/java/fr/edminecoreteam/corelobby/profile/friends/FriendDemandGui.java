@@ -126,7 +126,6 @@ public class FriendDemandGui implements Listener
     public static void gui(Player p, int Page, int MaxPage) {
 
         Inventory inv = Bukkit.createInventory(null, 54, "§8Profil (Demandes D'Amis) " + Page + "/" + MaxPage);
-        p.openInventory(inv);
         FriendInfo friendInfo = new FriendInfo(p.getName());
         pageCount.put(p, Page);
         int friendPerPage = 10;
@@ -178,12 +177,6 @@ public class FriendDemandGui implements Listener
             }
         }
 
-
-        new BukkitRunnable() {
-            int t = 0;
-            public void run() {
-
-                if (!p.getOpenInventory().getTitle().contains("§8Profil (Demandes D'Amis)")) { cancel(); }
                 ItemStack deco = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)5);
                 ItemMeta decoM = deco.getItemMeta();
                 decoM.addEnchant(Enchantment.DAMAGE_ALL, 1, true);
@@ -192,12 +185,6 @@ public class FriendDemandGui implements Listener
                 deco.setItemMeta(decoM);
                 inv.setItem(0, deco); inv.setItem(8, deco); inv.setItem(9, deco); inv.setItem(17, deco);
                 inv.setItem(45, deco); inv.setItem(53, deco); inv.setItem(36, deco); inv.setItem(44, deco);
-                ++t;
-                if (t == 10) {
-                    run();
-                }
-            }
-        }.runTaskTimer((Plugin)api, 0L, 10L);
 
         ItemStack profil = getSkull("http://textures.minecraft.net/texture/299c799b38ab1999c354332a74b3a49687012738225682d58159be2b8a2b");
         ItemMeta profilM = profil.getItemMeta();
@@ -319,9 +306,11 @@ public class FriendDemandGui implements Listener
                 slot += 1;
             }
             if (slot == 34) {
+                p.openInventory(inv);
                 return;
             }
         }
+        p.openInventory(inv);
 
     }
 

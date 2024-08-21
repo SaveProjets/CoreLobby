@@ -64,7 +64,6 @@ public class LinkGui implements Listener
     public static void gui(Player p) {
 
         Inventory inv = Bukkit.createInventory(null, 54, "§8Profil (Réseaux Sociaux)");
-        p.openInventory(inv);
         LinkData linkData = new LinkData(p.getUniqueId().toString());
         FriendInfo friendInfo = new FriendInfo(p.getName());
         SettingInfo settingInfo = new SettingInfo(p);
@@ -77,12 +76,6 @@ public class LinkGui implements Listener
 
         if (settingInfo.getLang() == 0)
         {
-            new BukkitRunnable() {
-                int t = 0;
-                public void run() {
-
-                    if (!p.getOpenInventory().getTitle().equalsIgnoreCase("§8Profil (Réseaux Sociaux)")) { cancel(); }
-
                     ItemStack deco = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)1);
                     ItemMeta decoM = deco.getItemMeta();
                     decoM.addEnchant(Enchantment.DAMAGE_ALL, 1, true);
@@ -323,13 +316,7 @@ public class LinkGui implements Listener
                     reddit.setItemMeta(redditM);
                     inv.setItem(33, reddit);
 
-                    ++t;
-                    if (t == 5) {
-                        t = 0;
-                        run();
-                    }
-                }
-            }.runTaskTimer((Plugin)api, 0L, 15L);
+            p.openInventory(inv);
 
         }
     }

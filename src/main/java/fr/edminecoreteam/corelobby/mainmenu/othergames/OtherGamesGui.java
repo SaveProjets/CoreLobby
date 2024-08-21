@@ -19,14 +19,12 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 
-public class OtherGamesGui implements Listener
-{
+public class OtherGamesGui implements Listener {
     private static Core api = Core.getInstance();
 
     public static void gui(Player p) {
 
         Inventory inv = Bukkit.createInventory(null, 54, "§8Menu Principal");
-        p.openInventory(inv);
         SettingInfo settingInfo = new SettingInfo(p);
 
         /*
@@ -35,105 +33,95 @@ public class OtherGamesGui implements Listener
          *  - Liste de demandes: 1
          */
 
-        if (settingInfo.getLang() == 0)
-        {
+        if (settingInfo.getLang() == 0) {
+            ItemStack deco = new ItemBuilder(Material.STAINED_GLASS_PANE, 1, (byte) 1)
+                    .setName("§r")
+                    .addEnchant(Enchantment.DAMAGE_ALL, 1)
+                    .hideEnchantments()
+                    .toItemStack();
+            inv.setItem(0, deco);
+            inv.setItem(8, deco);
+            inv.setItem(9, deco);
+            inv.setItem(17, deco);
+            inv.setItem(45, deco);
+            inv.setItem(53, deco);
+            inv.setItem(36, deco);
+            inv.setItem(44, deco);
 
-            new BukkitRunnable() {
-                int t = 0;
-                public void run() {
+            ArrayList<String> loremain = new ArrayList<String>();
+            loremain.add("");
+            loremain.add(" §aDescription:");
+            loremain.add(" §f▶ §7Section principal.");
+            loremain.add("");
+            loremain.add("§8➡ §fCliquez pour y accéder.");
 
-                    if (!p.getOpenInventory().getTitle().equalsIgnoreCase("§8Menu Principal")) { cancel(); }
+            ItemStack main = new ItemBuilder(Material.SKULL_ITEM, 1, (byte) 3)
+                    .setName("§b§lMenu Principal")
+                    .setLore(loremain)
+                    .setSkullUrl("https://textures.minecraft.net/texture/ddcd8fe8d4d5c05886db9f59127961549e602f30c51759998131b2ad25d264")
+                    .toItemStack();
+            inv.setItem(18, main);
 
-                    ItemStack deco = new ItemBuilder(Material.STAINED_GLASS_PANE, 1, (byte) 1)
-                            .setName("§r")
-                            .addEnchant(Enchantment.DAMAGE_ALL, 1)
-                            .hideEnchantments()
-                            .toItemStack();
-                    inv.setItem(0, deco); inv.setItem(8, deco); inv.setItem(9, deco); inv.setItem(17, deco);
-                    inv.setItem(45, deco); inv.setItem(53, deco); inv.setItem(36, deco); inv.setItem(44, deco);
+            ArrayList<String> lorehost = new ArrayList<String>();
+            lorehost.add("");
+            lorehost.add(" §aDescription:");
+            lorehost.add(" §f▶ §7Ici, libre a votre imagination de");
+            lorehost.add(" §f  §7créez ou jouez sur des parties custom.");
+            lorehost.add("");
+            lorehost.add("§8➡ §fCliquez pour y accéder.");
 
-                    ArrayList<String> loremain = new ArrayList<String>();
-                    loremain.add("");
-                    loremain.add(" §aDescription:");
-                    loremain.add(" §f▶ §7Section principal.");
-                    loremain.add("");
-                    loremain.add("§8➡ §fCliquez pour y accéder.");
+            ItemStack host = new ItemBuilder(Material.SKULL_ITEM, 1, (byte) 3)
+                    .setName("§d§lServeur customisé")
+                    .setLore(lorehost)
+                    .setSkullUrl("https://textures.minecraft.net/texture/c2eb28cd6c7524b14d59f3b8c465dfc78be8e0dac843e682c4252ae9459c78e4")
+                    .toItemStack();
+            inv.setItem(27, host);
 
-                    ItemStack main = new ItemBuilder(Material.SKULL_ITEM, 1, (byte) 3)
-                            .setName("§b§lMenu Principal")
-                            .setLore(loremain)
-                            .setSkullUrl("https://textures.minecraft.net/texture/ddcd8fe8d4d5c05886db9f59127961549e602f30c51759998131b2ad25d264")
-                            .toItemStack();
-                    inv.setItem(18, main);
+            ArrayList<String> lorevip = new ArrayList<String>();
+            lorevip.add("");
+            lorevip.add(" §aDescription:");
+            lorevip.add(" §f▶ §7...");
+            lorevip.add("");
+            lorevip.add("§8➡ §fCliquez pour y accéder.");
 
-                    ArrayList<String> lorehost = new ArrayList<String>();
-                    lorehost.add("");
-                    lorehost.add(" §aDescription:");
-                    lorehost.add(" §f▶ §7Ici, libre a votre imagination de");
-                    lorehost.add(" §f  §7créez ou jouez sur des parties custom.");
-                    lorehost.add("");
-                    lorehost.add("§8➡ §fCliquez pour y accéder.");
+            ItemStack vip = new ItemBuilder(Material.SKULL_ITEM, 1, (byte) 3)
+                    .setName("§f§lFonctions VIP")
+                    .setLore(lorevip)
+                    .setSkullUrl("https://textures.minecraft.net/texture/633c89a3c529d5136be6c49a62be0383fc3722cc990142e5cb3cc96db199d7d")
+                    .toItemStack();
+            inv.setItem(26, vip);
 
-                    ItemStack host = new ItemBuilder(Material.SKULL_ITEM, 1, (byte) 3)
-                            .setName("§d§lServeur customisé")
-                            .setLore(lorehost)
-                            .setSkullUrl("https://textures.minecraft.net/texture/c2eb28cd6c7524b14d59f3b8c465dfc78be8e0dac843e682c4252ae9459c78e4")
-                            .toItemStack();
-                    inv.setItem(27, host);
+            ArrayList<String> loresettings = new ArrayList<String>();
+            loresettings.add("");
+            loresettings.add(" §aDescription:");
+            loresettings.add(" §f▶ §7Modifiez à votre guise les");
+            loresettings.add(" §f  §7différents réglages disponibles.");
+            loresettings.add("");
+            loresettings.add("§8➡ §fCliquez pour y accéder.");
 
-                    ArrayList<String> lorevip = new ArrayList<String>();
-                    lorevip.add("");
-                    lorevip.add(" §aDescription:");
-                    lorevip.add(" §f▶ §7...");
-                    lorevip.add("");
-                    lorevip.add("§8➡ §fCliquez pour y accéder.");
+            ItemStack settings = new ItemBuilder(Material.SKULL_ITEM, 1, (byte) 3)
+                    .setName("§9§lParamètres")
+                    .setLore(loresettings)
+                    .setSkullUrl("https://textures.minecraft.net/texture/299c799b38ab1999c354332a74b3a49687012738225682d58159be2b8a2b")
+                    .toItemStack();
+            inv.setItem(35, settings);
 
-                    ItemStack vip = new ItemBuilder(Material.SKULL_ITEM, 1, (byte) 3)
-                            .setName("§f§lFonctions VIP")
-                            .setLore(lorevip)
-                            .setSkullUrl("https://textures.minecraft.net/texture/633c89a3c529d5136be6c49a62be0383fc3722cc990142e5cb3cc96db199d7d")
-                            .toItemStack();
-                    inv.setItem(26, vip);
+            ArrayList<String> lorepractice = new ArrayList<String>();
+            lorepractice.add("");
+            lorepractice.add(" §aDescription:");
+            lorepractice.add("");
+            lorepractice.add(" §dInformations:");
+            lorepractice.add(" §f▶ §7Joueur(s): §e" + OnlinesForGroups.getOnlinesFromGroup("practice"));
+            lorepractice.add(" §f▶ §7File d'attente: ");
+            lorepractice.add("");
+            lorepractice.add("§8➡ §fCliquez pour y accéder.");
 
-                    ArrayList<String> loresettings = new ArrayList<String>();
-                    loresettings.add("");
-                    loresettings.add(" §aDescription:");
-                    loresettings.add(" §f▶ §7Modifiez à votre guise les");
-                    loresettings.add(" §f  §7différents réglages disponibles.");
-                    loresettings.add("");
-                    loresettings.add("§8➡ §fCliquez pour y accéder.");
-
-                    ItemStack settings = new ItemBuilder(Material.SKULL_ITEM, 1, (byte) 3)
-                            .setName("§9§lParamètres")
-                            .setLore(loresettings)
-                            .setSkullUrl("https://textures.minecraft.net/texture/299c799b38ab1999c354332a74b3a49687012738225682d58159be2b8a2b")
-                            .toItemStack();
-                    inv.setItem(35, settings);
-
-                    ArrayList<String> lorepractice = new ArrayList<String>();
-                    lorepractice.add("");
-                    lorepractice.add(" §aDescription:");
-                    lorepractice.add("");
-                    lorepractice.add(" §dInformations:");
-                    lorepractice.add(" §f▶ §7Joueur(s): §e" + OnlinesForGroups.getOnlinesFromGroup("practice"));
-                    lorepractice.add(" §f▶ §7File d'attente: ");
-                    lorepractice.add("");
-                    lorepractice.add("§8➡ §fCliquez pour y accéder.");
-
-                    ItemStack practice = new ItemBuilder(Material.DIAMOND_SWORD, 1)
-                            .setName("§f§lPractice")
-                            .setLore(lorepractice)
-                            .toItemStack();
-                    inv.setItem(31, practice);
-
-                    ++t;
-                    if (t == 6) {
-                        t = 0;
-                        run();
-                    }
-                }
-            }.runTaskTimer((Plugin)api, 0L, 15L);
-
+            ItemStack practice = new ItemBuilder(Material.DIAMOND_SWORD, 1)
+                    .setName("§f§lPractice")
+                    .setLore(lorepractice)
+                    .toItemStack();
+            inv.setItem(31, practice);
+            p.openInventory(inv);
         }
     }
 }

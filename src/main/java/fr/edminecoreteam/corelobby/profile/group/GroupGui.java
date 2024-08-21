@@ -144,16 +144,10 @@ public class GroupGui implements Listener
     public static void gui(Player p) {
 
         Inventory inv = Bukkit.createInventory(null, 54, "§8Profil (Groupe) ");
-        p.openInventory(inv);
         FriendInfo friendInfo = new FriendInfo(p.getName());
         PartyData pData = new PartyData(p.getName());
 
 
-        new BukkitRunnable() {
-            int t = 0;
-            public void run() {
-
-                if (!p.getOpenInventory().getTitle().contains("§8Profil (Groupe)")) { cancel(); }
                 ItemStack deco = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)11);
                 ItemMeta decoM = deco.getItemMeta();
                 decoM.addEnchant(Enchantment.DAMAGE_ALL, 1, true);
@@ -162,12 +156,7 @@ public class GroupGui implements Listener
                 deco.setItemMeta(decoM);
                 inv.setItem(0, deco); inv.setItem(8, deco); inv.setItem(9, deco); inv.setItem(17, deco);
                 inv.setItem(45, deco); inv.setItem(53, deco); inv.setItem(36, deco); inv.setItem(44, deco);
-                ++t;
-                if (t == 10) {
-                    run();
-                }
-            }
-        }.runTaskTimer((Plugin)api, 0L, 10L);
+
 
         ItemStack profil = getSkull("http://textures.minecraft.net/texture/299c799b38ab1999c354332a74b3a49687012738225682d58159be2b8a2b");
         ItemMeta profilM = profil.getItemMeta();
@@ -227,11 +216,7 @@ public class GroupGui implements Listener
         groupprofil.setItemMeta(groupprofilM);
         inv.setItem(27, groupprofil);
 
-        new BukkitRunnable() {
-            int t = 0;
-            public void run() {
 
-                if (!p.getOpenInventory().getTitle().contains("§8Profil (Groupe)")) { cancel(); }
                 if (pData.hasGroup())
                 {
                     int groupID = pData.getGroupName();
@@ -764,12 +749,8 @@ public class GroupGui implements Listener
                     joingroup.setItemMeta(joingroupM);
                     inv.setItem(31, joingroup);
                 }
-                ++t;
-                if (t == 10) {
-                    run();
-                }
-            }
-        }.runTaskTimer((Plugin)api, 0L, 40L);
+        p.openInventory(inv);
+
 
             /*int slot = 20;
         	int friendsCount = 0;

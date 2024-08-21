@@ -18,7 +18,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
@@ -35,99 +34,84 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 
-public class GroupListPlayerGui implements Listener
-{
+public class GroupListPlayerGui implements Listener {
     private static Core api = Core.getInstance();
-    private static ItemStack getSkull(String url) { return SkullNBT.getSkull(url); }
+
+    private static ItemStack getSkull(String url) {
+        return SkullNBT.getSkull(url);
+    }
+
     static HashMap<Player, Integer> pageCount = new HashMap<Player, Integer>();
     static HashMap<Player, String> playerTools = new HashMap<Player, String>();
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
-        Player p = (Player)e.getWhoClicked();
+        Player p = (Player) e.getWhoClicked();
         Inventory inv = e.getClickedInventory();
         ItemStack it = e.getCurrentItem();
-        if (it == null) {  return; }
-        if (inv.getName().contains("§8Profil (Liste du groupe)"))
-        {
+        if (it == null) {
+            return;
+        }
+        if (inv.getName().contains("§8Profil (Liste du groupe)")) {
             PartyData pInfo = new PartyData(p.getName());
             FriendInfo friendInfo = new FriendInfo(p.getName());
             int groupID = pInfo.getGroupName();
             int MaxPage = pInfo.getGroupPageNumber(groupID);
             e.setCancelled(true);
-            if (it.getType() == Material.ARROW)
-            {
-                if(it.getItemMeta().getDisplayName() == "§8§l⬇ §7Retour §8§l⬇")
-                {
+            if (it.getType() == Material.ARROW) {
+                if (it.getItemMeta().getDisplayName() == "§8§l⬇ §7Retour §8§l⬇") {
                     p.playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
                     GroupGui.gui(p);
                 }
             }
-            if (it.getType() == Material.SKULL_ITEM)
-            {
-                if(it.getItemMeta().getDisplayName() == "§c§lProfil")
-                {
+            if (it.getType() == Material.SKULL_ITEM) {
+                if (it.getItemMeta().getDisplayName() == "§c§lProfil") {
                     p.playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
                     ProfileGUI.gui(p);
                 }
-                if(it.getItemMeta().getDisplayName() == "§d§lAmis §c❤")
-                {
+                if (it.getItemMeta().getDisplayName() == "§d§lAmis §c❤") {
                     p.playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
                     FriendGui.gui(p, 1, friendInfo.getFriendPageNumber());
                 }
-                if(it.getItemMeta().getDisplayName() == "§9§lGroupes")
-                {
+                if (it.getItemMeta().getDisplayName() == "§9§lGroupes") {
                     p.playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
                     GroupGui.gui(p);
                 }
-                if(it.getItemMeta().getDisplayName() == "§8➡ §7Page Suivante")
-                {
+                if (it.getItemMeta().getDisplayName() == "§8➡ §7Page Suivante") {
                     p.playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
                     pageCount.put(p, pageCount.get(p) + 1);
                     gui(p, pageCount.get(p), MaxPage, 1);
                 }
-                if(it.getItemMeta().getDisplayName() == "§8⬅ §7Page Précédente")
-                {
+                if (it.getItemMeta().getDisplayName() == "§8⬅ §7Page Précédente") {
                     p.playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
                     pageCount.put(p, pageCount.get(p) - 1);
                     gui(p, pageCount.get(p), MaxPage, 1);
                 }
             }
-            if (it.getType() == Material.SKULL_ITEM)
-            {
-                if(it.getItemMeta().getDisplayName() == "§8⬅ §7Page Précédente" || it.getItemMeta().getDisplayName() == "§8➡ §7Page Suivante" || it.getItemMeta().getDisplayName() == "§c§lProfil" || it.getItemMeta().getDisplayName() == "§b§lVotre Guild" || it.getItemMeta().getDisplayName() == "§9§lGroupes" || it.getItemMeta().getDisplayName() == "§d§lAmis §c❤")
-                {
+            if (it.getType() == Material.SKULL_ITEM) {
+                if (it.getItemMeta().getDisplayName() == "§8⬅ §7Page Précédente" || it.getItemMeta().getDisplayName() == "§8➡ §7Page Suivante" || it.getItemMeta().getDisplayName() == "§c§lProfil" || it.getItemMeta().getDisplayName() == "§b§lVotre Guild" || it.getItemMeta().getDisplayName() == "§9§lGroupes" || it.getItemMeta().getDisplayName() == "§d§lAmis §c❤") {
                     e.setCancelled(true);
                     return;
-                }
-                else
-                {
+                } else {
                     String target = it.getItemMeta().getDisplayName().replace("§e", "");
-                    if (pInfo.getGroupLeader(groupID).contains(p.getName()))
-                    {
-                        if (target.equalsIgnoreCase(p.getName()))
-                        {
+                    if (pInfo.getGroupLeader(groupID).contains(p.getName())) {
+                        if (target.equalsIgnoreCase(p.getName())) {
                             e.setCancelled(true);
                             return;
                         }
                         playerTools.put(p, target);
                         playerTools(p, 2);
                         p.playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
-                    }
-                    else if (pInfo.getGroupMods(groupID).contains(p.getName()))
-                    {
-                        if (target.equalsIgnoreCase(p.getName()))
-                        {
+                    } else if (pInfo.getGroupMods(groupID).contains(p.getName())) {
+                        if (target.equalsIgnoreCase(p.getName())) {
                             e.setCancelled(true);
                             return;
                         }
-                        if (pInfo.getGroupLeader(groupID).contains(target))
-                        {
+                        if (pInfo.getGroupLeader(groupID).contains(target)) {
                             e.setCancelled(true);
                             return;
                         }
-                        if (pInfo.getGroupMods(groupID).contains(target))
-                        {
+                        if (pInfo.getGroupMods(groupID).contains(target)) {
                             e.setCancelled(true);
                             return;
                         }
@@ -142,26 +126,24 @@ public class GroupListPlayerGui implements Listener
 
     @EventHandler
     public void onInventoryClick2(InventoryClickEvent e) {
-        Player p = (Player)e.getWhoClicked();
+        Player p = (Player) e.getWhoClicked();
         Inventory inv = e.getClickedInventory();
         ItemStack it = e.getCurrentItem();
-        if (it == null) { return; }
+        if (it == null) {
+            return;
+        }
 
-        if (inv.getName().equalsIgnoreCase("§8Profil (Gestion de " + playerTools.get(p) + ")"))
-        {
+        if (inv.getName().equalsIgnoreCase("§8Profil (Gestion de " + playerTools.get(p) + ")")) {
             e.setCancelled(true);
             PartyData pInfo = new PartyData(p.getName());
             int groupID = pInfo.getGroupName();
-            if (it.getType() == Material.ARROW)
-            {
-                if(it.getItemMeta().getDisplayName() == "§8§l⬇ §7Retour §8§l⬇")
-                {
+            if (it.getType() == Material.ARROW) {
+                if (it.getItemMeta().getDisplayName() == "§8§l⬇ §7Retour §8§l⬇") {
                     p.playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
                     GroupListPlayerGui.gui(p, 1, pInfo.getGroupPageNumber(pInfo.getGroupName()), 0);
                 }
             }
-            if (pInfo.getGroupLeader(groupID).contains(p.getName()))
-            {
+            if (pInfo.getGroupLeader(groupID).contains(p.getName())) {
                 if (it.getType() == Material.RAW_FISH && it.getItemMeta().getDisplayName().contains("§c§lBannir")) {
                     confirmBanGroup(p, playerTools.get(p));
                 }
@@ -173,29 +155,20 @@ public class GroupListPlayerGui implements Listener
                 }
                 if (it.getType() == Material.WRITTEN_BOOK && it.getItemMeta().getDisplayName().contains("§b§lGestion du rang de")) {
                     PartyData targetInfo = new PartyData(playerTools.get(p));
-                    if (targetInfo.getRank(groupID) == 0)
-                    {
+                    if (targetInfo.getRank(groupID) == 0) {
                         p.playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
                         targetInfo.setRank(1, groupID);
-                        if (pInfo.getGroupLeader(groupID).contains(p.getName()))
-                        {
+                        if (pInfo.getGroupLeader(groupID).contains(p.getName())) {
                             playerTools(p, 2);
-                        }
-                        else if (pInfo.getGroupMods(groupID).contains(p.getName()))
-                        {
+                        } else if (pInfo.getGroupMods(groupID).contains(p.getName())) {
                             playerTools(p, 1);
                         }
-                    }
-                    else if (targetInfo.getRank(groupID) == 1)
-                    {
+                    } else if (targetInfo.getRank(groupID) == 1) {
                         p.playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
                         targetInfo.setRank(0, groupID);
-                        if (pInfo.getGroupLeader(groupID).contains(p.getName()))
-                        {
+                        if (pInfo.getGroupLeader(groupID).contains(p.getName())) {
                             playerTools(p, 2);
-                        }
-                        else if (pInfo.getGroupMods(groupID).contains(p.getName()))
-                        {
+                        } else if (pInfo.getGroupMods(groupID).contains(p.getName())) {
                             playerTools(p, 1);
                         }
                     }
@@ -205,11 +178,9 @@ public class GroupListPlayerGui implements Listener
                     ByteArrayDataOutput out = ByteStreams.newDataOutput();
                     out.writeUTF("BungeeCommand");
                     out.writeUTF("p warp" + playerTools.get(p));
-                    p.sendPluginMessage((Plugin)api, "BungeeCord", out.toByteArray());
+                    p.sendPluginMessage((Plugin) api, "BungeeCord", out.toByteArray());
                 }
-            }
-            else if (pInfo.getGroupMods(groupID).contains(p.getName()))
-            {
+            } else if (pInfo.getGroupMods(groupID).contains(p.getName())) {
                 if (it.getType() == Material.RAW_FISH && it.getItemMeta().getDisplayName().contains("§c§lBannir")) {
                     confirmBanGroup(p, playerTools.get(p));
                 }
@@ -220,31 +191,20 @@ public class GroupListPlayerGui implements Listener
         }
     }
 
-    public static void playerTools(Player p, int leaderOrMod)
-    {
-        if (leaderOrMod == 1)
-        {
+    public static void playerTools(Player p, int leaderOrMod) {
+        if (leaderOrMod == 1) {
             Inventory inv = Bukkit.createInventory(null, 27, "§8Profil (Gestion de " + playerTools.get(p) + ")");
-            p.openInventory(inv);
-            new BukkitRunnable() {
-                int t = 0;
-                public void run() {
 
-                    if (!p.getOpenInventory().getTitle().contains("§8Profil (Gestion de " + playerTools.get(p) + ")")) { playerTools.remove(p); cancel(); }
-                    ItemStack deco = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)4);
-                    ItemMeta decoM = deco.getItemMeta();
-                    decoM.addEnchant(Enchantment.DAMAGE_ALL, 1, true);
-                    decoM.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_ENCHANTS });
-                    decoM.setDisplayName("§r");
-                    deco.setItemMeta(decoM);
-                    inv.setItem(0, deco); inv.setItem(8, deco);
-                    inv.setItem(18, deco); inv.setItem(26, deco);
-                    ++t;
-                    if (t == 10) {
-                        run();
-                    }
-                }
-            }.runTaskTimer((Plugin)api, 0L, 10L);
+            ItemStack deco = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 4);
+            ItemMeta decoM = deco.getItemMeta();
+            decoM.addEnchant(Enchantment.DAMAGE_ALL, 1, true);
+            decoM.addItemFlags(new ItemFlag[]{ItemFlag.HIDE_ENCHANTS});
+            decoM.setDisplayName("§r");
+            deco.setItemMeta(decoM);
+            inv.setItem(0, deco);
+            inv.setItem(8, deco);
+            inv.setItem(18, deco);
+            inv.setItem(26, deco);
 
             ItemStack back = new ItemStack(Material.ARROW, 1);
             ItemMeta backM = back.getItemMeta();
@@ -279,32 +239,23 @@ public class GroupListPlayerGui implements Listener
             kickM.setLore(lorekick);
             kick.setItemMeta(kickM);
             inv.setItem(14, kick);
-        }
-        else if (leaderOrMod == 2)
-        {
-            Inventory inv = Bukkit.createInventory(null, 27, "§8Profil (Gestion de " + playerTools.get(p) + ")");
+
             p.openInventory(inv);
+        } else if (leaderOrMod == 2) {
+            Inventory inv = Bukkit.createInventory(null, 27, "§8Profil (Gestion de " + playerTools.get(p) + ")");
             PartyData pToolsInfo = new PartyData(playerTools.get(p));
             int pToolsGroupID = pToolsInfo.getGroupName();
-            new BukkitRunnable() {
-                int t = 0;
-                public void run() {
 
-                    if (!p.getOpenInventory().getTitle().contains("§8Profil (Gestion de " + playerTools.get(p) + ")")) { playerTools.remove(p); cancel(); }
-                    ItemStack deco = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)4);
+                    ItemStack deco = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 4);
                     ItemMeta decoM = deco.getItemMeta();
                     decoM.addEnchant(Enchantment.DAMAGE_ALL, 1, true);
-                    decoM.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_ENCHANTS });
+                    decoM.addItemFlags(new ItemFlag[]{ItemFlag.HIDE_ENCHANTS});
                     decoM.setDisplayName("§r");
                     deco.setItemMeta(decoM);
-                    inv.setItem(0, deco); inv.setItem(8, deco);
-                    inv.setItem(18, deco); inv.setItem(26, deco);
-                    ++t;
-                    if (t == 10) {
-                        run();
-                    }
-                }
-            }.runTaskTimer((Plugin)api, 0L, 10L);
+                    inv.setItem(0, deco);
+                    inv.setItem(8, deco);
+                    inv.setItem(18, deco);
+                    inv.setItem(26, deco);
 
             ItemStack back = new ItemStack(Material.ARROW, 1);
             ItemMeta backM = back.getItemMeta();
@@ -322,13 +273,10 @@ public class GroupListPlayerGui implements Listener
             loresetrank.add(" §f  §7parmi les choix suivants.");
             loresetrank.add("");
             loresetrank.add(" §dInformations:");
-            if (pToolsInfo.getRank(pToolsGroupID) == 1)
-            {
+            if (pToolsInfo.getRank(pToolsGroupID) == 1) {
                 loresetrank.add(" §f➟ §9[modérateur]");
                 loresetrank.add(" §f▶ §8[joueur]");
-            }
-            else if (pToolsInfo.getRank(pToolsGroupID) == 0)
-            {
+            } else if (pToolsInfo.getRank(pToolsGroupID) == 0) {
                 loresetrank.add(" §f▶ §8[modérateur]");
                 loresetrank.add(" §f➟ §7[joueur]");
             }
@@ -383,7 +331,7 @@ public class GroupListPlayerGui implements Listener
             ItemStack warp = new ItemStack(Material.ENDER_PEARL, 1);
             ItemMeta warpM = warp.getItemMeta();
             warpM.setDisplayName("§a§lTéléporter " + playerTools.get(p));
-            ArrayList<String> lorewarp= new ArrayList<String>();
+            ArrayList<String> lorewarp = new ArrayList<String>();
             lorewarp.add("");
             lorewarp.add(" §aDescription:");
             lorewarp.add(" §f▶ §7Cliquez pour téléporter " + playerTools.get(p));
@@ -393,13 +341,14 @@ public class GroupListPlayerGui implements Listener
             warpM.setLore(lorewarp);
             warp.setItemMeta(warpM);
             inv.setItem(15, warp);
+
+            p.openInventory(inv);
         }
     }
 
     public static void gui(Player p, int Page, int MaxPage, int sort) {
 
         Inventory inv = Bukkit.createInventory(null, 54, "§8Profil (Liste du groupe) " + Page + "/" + MaxPage);
-        p.openInventory(inv);
         FriendInfo friendInfo = new FriendInfo(p.getName());
         PartyData pInfo = new PartyData(p.getName());
         pageCount.put(p, Page);
@@ -411,18 +360,15 @@ public class GroupListPlayerGui implements Listener
         back.setItemMeta(backM);
         inv.setItem(49, back);
 
-        if (Page != MaxPage)
-        {
-            if (Page == 1)
-            {
+        if (Page != MaxPage) {
+            if (Page == 1) {
                 ItemStack suivant = getSkull("http://textures.minecraft.net/texture/956a3618459e43b287b22b7e235ec699594546c6fcd6dc84bfca4cf30ab9311");
                 ItemMeta suivantM = suivant.getItemMeta();
                 suivantM.setDisplayName("§8➡ §7Page Suivante");
                 suivant.setItemMeta(suivantM);
                 inv.setItem(50, suivant);
             }
-            if (Page != 1)
-            {
+            if (Page != 1) {
                 ItemStack suivant = getSkull("http://textures.minecraft.net/texture/956a3618459e43b287b22b7e235ec699594546c6fcd6dc84bfca4cf30ab9311");
                 ItemMeta suivantM = suivant.getItemMeta();
                 suivantM.setDisplayName("§8➡ §7Page Suivante");
@@ -430,48 +376,38 @@ public class GroupListPlayerGui implements Listener
                 inv.setItem(50, suivant);
 
                 ItemStack precedent = getSkull("http://textures.minecraft.net/texture/cdc9e4dcfa4221a1fadc1b5b2b11d8beeb57879af1c42362142bae1edd5");
-                SkullMeta precedentM = (SkullMeta)precedent.getItemMeta();
+                SkullMeta precedentM = (SkullMeta) precedent.getItemMeta();
                 precedentM.setDisplayName("§8⬅ §7Page Précédente");
-                precedent.setItemMeta((ItemMeta)precedentM);
+                precedent.setItemMeta((ItemMeta) precedentM);
                 inv.setItem(48, precedent);
             }
-        }
-        else if (Page == MaxPage)
-        {
-            if (MaxPage == 1)
-            {
+        } else if (Page == MaxPage) {
+            if (MaxPage == 1) {
                 //Rien
-            }
-            else if (MaxPage > 1)
-            {
+            } else if (MaxPage > 1) {
                 ItemStack precedent = getSkull("http://textures.minecraft.net/texture/cdc9e4dcfa4221a1fadc1b5b2b11d8beeb57879af1c42362142bae1edd5");
-                SkullMeta precedentM = (SkullMeta)precedent.getItemMeta();
+                SkullMeta precedentM = (SkullMeta) precedent.getItemMeta();
                 precedentM.setDisplayName("§8⬅ §7Page Précédente");
-                precedent.setItemMeta((ItemMeta)precedentM);
+                precedent.setItemMeta((ItemMeta) precedentM);
                 inv.setItem(48, precedent);
             }
         }
 
-
-        new BukkitRunnable() {
-            int t = 0;
-            public void run() {
-
-                if (!p.getOpenInventory().getTitle().contains("§8Profil (Liste du groupe)")) { cancel(); }
-                ItemStack deco = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)4);
+                ItemStack deco = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 4);
                 ItemMeta decoM = deco.getItemMeta();
                 decoM.addEnchant(Enchantment.DAMAGE_ALL, 1, true);
-                decoM.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_ENCHANTS });
+                decoM.addItemFlags(new ItemFlag[]{ItemFlag.HIDE_ENCHANTS});
                 decoM.setDisplayName("§r");
                 deco.setItemMeta(decoM);
-                inv.setItem(0, deco); inv.setItem(8, deco); inv.setItem(9, deco); inv.setItem(17, deco);
-                inv.setItem(45, deco); inv.setItem(53, deco); inv.setItem(36, deco); inv.setItem(44, deco);
-                ++t;
-                if (t == 10) {
-                    run();
-                }
-            }
-        }.runTaskTimer((Plugin)api, 0L, 10L);
+                inv.setItem(0, deco);
+                inv.setItem(8, deco);
+                inv.setItem(9, deco);
+                inv.setItem(17, deco);
+                inv.setItem(45, deco);
+                inv.setItem(53, deco);
+                inv.setItem(36, deco);
+                inv.setItem(44, deco);
+
 
         ItemStack profil = getSkull("http://textures.minecraft.net/texture/299c799b38ab1999c354332a74b3a49687012738225682d58159be2b8a2b");
         ItemMeta profilM = profil.getItemMeta();
@@ -538,61 +474,44 @@ public class GroupListPlayerGui implements Listener
             ++friendsCount;
             RankData rankInfo = new RankData(groups);
             SettingData settingInfo = new SettingData(groups);
-            ItemStack group = new ItemStack(Material.SKULL_ITEM, 1, (byte)3);
+            ItemStack group = new ItemStack(Material.SKULL_ITEM, 1, (byte) 3);
             SkullMeta groupM = (SkullMeta) group.getItemMeta();
             groupM.setOwner(groups);
             groupM.setDisplayName("§e" + groups);
             ArrayList<String> loregroup = new ArrayList<String>();
             loregroup.add("");
             loregroup.add(" §dInformation:");
-            if (pInfo.getGroupLeader(groupeID).contains(groups))
-            {
+            if (pInfo.getGroupLeader(groupeID).contains(groups)) {
                 loregroup.add(" §f▶ §7Rang de groupe: §6§lLeader");
-            }
-            else if (pInfo.getGroupMods(groupeID).contains(groups))
-            {
+            } else if (pInfo.getGroupMods(groupeID).contains(groups)) {
                 loregroup.add(" §f▶ §7Rang de groupe: §9§lModérateur");
-            }
-            else if (pInfo.getGroupPlayers(groupeID).contains(groups))
-            {
+            } else if (pInfo.getGroupPlayers(groupeID).contains(groups)) {
                 loregroup.add(" §f▶ §7Rang de groupe: §7Joueur");
             }
-            if (rankInfo.getRankTypeString().equalsIgnoreCase("staff"))
-            {
+            if (rankInfo.getRankTypeString().equalsIgnoreCase("staff")) {
                 loregroup.add(" §f▶ §7Grade: " + Rank.powerToRank(rankInfo.getRankModuleString()).getDisplayName());
             }
-            if (rankInfo.getRankTypeString().equalsIgnoreCase("static"))
-            {
-                if (rankInfo.getRankIDString() > 0)
-                {
+            if (rankInfo.getRankTypeString().equalsIgnoreCase("static")) {
+                if (rankInfo.getRankIDString() > 0) {
                     loregroup.add(" §f▶ §7Grade: " + Rank.powerToRank(rankInfo.getRankIDString()).getDisplayName());
-                }
-                else if (rankInfo.getRankIDString() == 0)
-                {
+                } else if (rankInfo.getRankIDString() == 0) {
                     loregroup.add(" §f▶ §7Grade: §caucun");
                 }
             }
-            if (rankInfo.getRankTypeString().equalsIgnoreCase("tempo"))
-            {
+            if (rankInfo.getRankTypeString().equalsIgnoreCase("tempo")) {
                 loregroup.add(" §f▶ §7Grade: " + Rank.powerToRank(rankInfo.getRankIDString()).getDisplayName());
             }
-            if (rankInfo.getRankTypeString().equalsIgnoreCase("module"))
-            {
+            if (rankInfo.getRankTypeString().equalsIgnoreCase("module")) {
                 loregroup.add(" §f▶ §7Grade: " + Rank.powerToRank(rankInfo.getRankModuleString()).getDisplayName());
             }
-            if (settingInfo.getGroupFollowString().equalsIgnoreCase("activer"))
-            {
+            if (settingInfo.getGroupFollowString().equalsIgnoreCase("activer")) {
                 loregroup.add(" §f▶ §7Suivi de groupe: §aActivé");
-            }
-            else
-            {
+            } else {
                 loregroup.add(" §f▶ §7Suivi de groupe: §cDésactivé");
             }
             loregroup.add("");
-            if (pInfo.getGroupLeader(groupeID).contains(p.getName()) || pInfo.getGroupMods(groupeID).contains(p.getName()))
-            {
-                if (!groups.equalsIgnoreCase(p.getName()))
-                {
+            if (pInfo.getGroupLeader(groupeID).contains(p.getName()) || pInfo.getGroupMods(groupeID).contains(p.getName())) {
+                if (!groups.equalsIgnoreCase(p.getName())) {
                     loregroup.add("§8➡ §fCliquez pour y accéder.");
                 }
             }
@@ -600,24 +519,24 @@ public class GroupListPlayerGui implements Listener
             group.setItemMeta(groupM);
 
 
-            if (friendsCount == friendPerPage)
-            {
+            if (friendsCount == friendPerPage) {
                 inv.setItem(slot, group);
-            }
-            else if (friendsCount != friendPerPage)
-            {
+            } else if (friendsCount != friendPerPage) {
                 inv.setItem(slot, group);
             }
             if (slot == 24) {
                 slot += 4;
             }
-            if (slot != 25 || slot != 33  && slot < 33) {
+            if (slot != 25 || slot != 33 && slot < 33) {
                 slot += 1;
             }
             if (slot == 34) {
+                p.openInventory(inv);
                 return;
             }
         }
+        p.openInventory(inv);
+
     }
 
     public static void confirmBanGroup(Player p, String target) {
