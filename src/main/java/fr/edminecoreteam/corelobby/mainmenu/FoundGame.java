@@ -3,6 +3,7 @@ package fr.edminecoreteam.corelobby.mainmenu;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.edminecoreteam.api.utils.builder.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -139,10 +140,9 @@ public class FoundGame implements Listener
     {
         if (item == 1)
         {
-            ItemStack found = new ItemStack(Material.BARRIER, 1);
-            ItemMeta foundM = found.getItemMeta();
-            foundM.setDisplayName("§c§lRecherche en cours §7• Clique (Annuler)");
-            found.setItemMeta(foundM);
+            ItemStack found = new ItemBuilder(Material.BARRIER, 1)
+                    .setName("§c§lRecherche en cours §7• Clique (Annuler)")
+                    .toItemStack();
             p.getInventory().setItem(0, found);
         }
         if (item == 2)
