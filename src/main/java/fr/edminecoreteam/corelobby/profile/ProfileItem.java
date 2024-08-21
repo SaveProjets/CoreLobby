@@ -1,5 +1,6 @@
 package fr.edminecoreteam.corelobby.profile;
 
+import fr.edminecoreteam.api.utils.builder.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -28,25 +29,7 @@ public class ProfileItem implements Listener
         if (it == null) {  return; }
         if (it.getType() == Material.SKULL_ITEM)
         {
-            if(it.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lProfil §7• Clique"))
-            {
-                e.setCancelled(true);
-                p.playSound(p.getLocation(), Sound.HORSE_ARMOR, 1.0f, 1.0f);
-                ProfileGUI.gui(p);
-            }
-            if(it.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lProfile §7• Click"))
-            {
-                e.setCancelled(true);
-                p.playSound(p.getLocation(), Sound.HORSE_ARMOR, 1.0f, 1.0f);
-                ProfileGUI.gui(p);
-            }
-            if(it.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lPerfile §7• Clic"))
-            {
-                e.setCancelled(true);
-                p.playSound(p.getLocation(), Sound.HORSE_ARMOR, 1.0f, 1.0f);
-                ProfileGUI.gui(p);
-            }
-            if(it.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lProfil §7• Sklick"))
+            if(it.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lProfil §7• Clique") || it.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lProfile §7• Click") || it.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lPerfile §7• Clic") || it.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lPerfile §7• Clic") || it.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lProfil §7• Sklick"))
             {
                 e.setCancelled(true);
                 p.playSound(p.getLocation(), Sound.HORSE_ARMOR, 1.0f, 1.0f);
@@ -64,32 +47,8 @@ public class ProfileItem implements Listener
         if (it == null) { return; }
 
         if (it.getType() == Material.SKULL_ITEM
-                && it.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lProfil §7• Clique")
+                && (it.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lProfil §7• Clique") || it.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lProfile §7• Click") || it.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lPerfile §7• Clic") || it.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lPerfile §7• Clic") || it.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lProfil §7• Sklick"))
                 && (a == Action.LEFT_CLICK_AIR || a == Action.LEFT_CLICK_BLOCK || a == Action.RIGHT_CLICK_AIR || a == Action.RIGHT_CLICK_BLOCK))
-        {
-            e.setCancelled(true);
-            p.playSound(p.getLocation(), Sound.HORSE_ARMOR, 1.0f, 1.0f);
-            ProfileGUI.gui(p);
-        }
-        if (it.getType() == Material.SKULL_ITEM
-                && it.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lProfile §7• Click")
-                && (a == Action.RIGHT_CLICK_AIR || a == Action.RIGHT_CLICK_BLOCK || a == Action.LEFT_CLICK_AIR || a == Action.LEFT_CLICK_BLOCK))
-        {
-            e.setCancelled(true);
-            p.playSound(p.getLocation(), Sound.HORSE_ARMOR, 1.0f, 1.0f);
-            ProfileGUI.gui(p);
-        }
-        if (it.getType() == Material.SKULL_ITEM
-                && it.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lPerfile §7• Clic")
-                && (a == Action.RIGHT_CLICK_AIR || a == Action.RIGHT_CLICK_BLOCK || a == Action.LEFT_CLICK_AIR || a == Action.LEFT_CLICK_BLOCK))
-        {
-            e.setCancelled(true);
-            p.playSound(p.getLocation(), Sound.HORSE_ARMOR, 1.0f, 1.0f);
-            ProfileGUI.gui(p);
-        }
-        if (it.getType() == Material.SKULL_ITEM
-                && it.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lProfil §7• Sklick")
-                && (a == Action.RIGHT_CLICK_AIR || a == Action.RIGHT_CLICK_BLOCK || a == Action.LEFT_CLICK_AIR || a == Action.LEFT_CLICK_BLOCK))
         {
             e.setCancelled(true);
             p.playSound(p.getLocation(), Sound.HORSE_ARMOR, 1.0f, 1.0f);
@@ -103,42 +62,21 @@ public class ProfileItem implements Listener
         Player p = e.getPlayer();
         SettingInfo settingInfo = new SettingInfo(p);
 
-        if (settingInfo.getLang() == 0)
-        {
-            ItemStack profil = new ItemStack(Material.SKULL_ITEM, 1, (byte)3);
-            SkullMeta profilM = (SkullMeta)profil.getItemMeta();
-            profilM.setOwner(p.getName());
-            profilM.setDisplayName("§c§lProfil §7• Clique");
-            profil.setItemMeta((ItemMeta)profilM);
-            p.getInventory().setItem(1, profil);
+        ItemBuilder ib = new ItemBuilder(Material.SKULL_ITEM, 1, (byte) 3)
+                .setSkullOwner(p.getName());
+        if(settingInfo.getLang() == 0){
+            ib.setName("§c§lProfil §7• Clique");
+        }else if(settingInfo.getLang() == 1){
+            ib.setName("§c§lProfile §7• Click");
+        }else if (settingInfo.getLang() == 2){
+            ib.setName("§c§lPerfile §7• Clic");
+        }else if (settingInfo.getLang() == 3){
+            ib.setName("§c§lProfil §7• Sklick");
         }
-        if (settingInfo.getLang() == 1)
-        {
-            ItemStack profil = new ItemStack(Material.SKULL_ITEM, 1, (byte)3);
-            SkullMeta profilM = (SkullMeta)profil.getItemMeta();
-            profilM.setOwner(p.getName());
-            profilM.setDisplayName("§c§lProfile §7• Click");
-            profil.setItemMeta((ItemMeta)profilM);
-            p.getInventory().setItem(1, profil);
-        }
-        if (settingInfo.getLang() == 2)
-        {
-            ItemStack profil = new ItemStack(Material.SKULL_ITEM, 1, (byte)3);
-            SkullMeta profilM = (SkullMeta)profil.getItemMeta();
-            profilM.setOwner(p.getName());
-            profilM.setDisplayName("§c§lPerfile §7• Clic");
-            profil.setItemMeta((ItemMeta)profilM);
-            p.getInventory().setItem(1, profil);
-        }
-        if (settingInfo.getLang() == 3)
-        {
-            ItemStack profil = new ItemStack(Material.SKULL_ITEM, 1, (byte)3);
-            SkullMeta profilM = (SkullMeta)profil.getItemMeta();
-            profilM.setOwner(p.getName());
-            profilM.setDisplayName("§c§lProfil §7• Sklick");
-            profil.setItemMeta((ItemMeta)profilM);
-            p.getInventory().setItem(1, profil);
-        }
+
+        ItemStack profil = ib.toItemStack();
+
+        p.getInventory().setItem(1, profil);
     }
 
 }
