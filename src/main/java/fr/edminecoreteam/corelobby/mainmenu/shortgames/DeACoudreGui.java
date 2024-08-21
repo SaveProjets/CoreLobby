@@ -24,8 +24,6 @@ import fr.edminecoreteam.corelobby.utils.SkullNBT;
 public class DeACoudreGui implements Listener
 {
     private static Core api = Core.getInstance();
-    private static ItemStack getSkull(String url) { return SkullNBT.getSkull(url); }
-
     public static void gui(Player p) {
 
         Inventory inv = Bukkit.createInventory(null, 54, "§8Menu Principal (Dé À Coudre)");
