@@ -748,7 +748,6 @@ public class SettingGui implements Listener {
     public static void guiLobby(Player p) {
 
         Inventory inv = Bukkit.createInventory(null, 54, "§8Profil (Réglages)");
-        p.openInventory(inv);
         FriendInfo friendInfo = new FriendInfo(p.getName());
         SettingInfo settingInfo = new SettingInfo(p);
 
@@ -987,7 +986,6 @@ public class SettingGui implements Listener {
     public static void guiGuild(Player p) {
 
         Inventory inv = Bukkit.createInventory(null, 54, "§8Profil (Réglages)");
-        p.openInventory(inv);
         FriendInfo friendInfo = new FriendInfo(p.getName());
         SettingInfo settingInfo = new SettingInfo(p);
 

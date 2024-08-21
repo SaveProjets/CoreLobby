@@ -73,7 +73,6 @@ public class ProfileGUI implements Listener {
     public static void gui(Player p) {
 
         Inventory inv = Bukkit.createInventory(null, 54, "§8Profil");
-        p.openInventory(inv);
         AccountInfo accountInfo = new AccountInfo(p);
         RankInfo rankInfo = new RankInfo(p);
         FriendInfo friendInfo = new FriendInfo(p.getName());
@@ -348,6 +347,8 @@ public class ProfileGUI implements Listener {
         loreSocialMedia.add(" §f  §7au grand public ! ");
         loreSocialMedia.add("");
         loreSocialMedia.add("§8➡ §fCliquez pour y accéder.");
+
+        p.openInventory(inv);
 
         ItemStack socialMedia = new ItemBuilder(Material.SKULL_ITEM, 1, (byte) 3)
                 .setName("§6§lVos Réseaux Sociaux")
